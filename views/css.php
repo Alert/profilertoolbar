@@ -18,6 +18,7 @@ $C_TABS_BORDER_USE = '#1a1a1a';
   #ptb{}
   #ptb > *{padding:0; margin:0; font-family: <?=$MAIN_FONT;?>; font-size: <?=$MAIN_FONT_SIZE;?>;}
   #ptb table{font-family: <?=$MAIN_FONT;?>; font-size: <?=$MAIN_FONT_SIZE;?>; color:<?=$C_1;?>; font-weight: normal; border: 0; padding: 0; border-collapse:collapse; margin: 10px; width:98%;}
+  #ptb table thead th{text-align: center;}
   #ptb table tbody tr{}
   #ptb table tbody tr.total{border-top: 1px solid gray;border-bottom: 1px solid gray;}
   #ptb table tbody tr:hover{border:1px solid <?=$C_4_HOVER;?>;}

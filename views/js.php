@@ -86,12 +86,15 @@
         }
       }
       PTB.addClass(tabEl,'use');
-      // 2. show tab_content for this tab
+      // 2. show tab_content for this tab and save
       items = PTB.getEl('.ptb_tab_cont');
       for(i=0;i<items.length;i++) items[i].style.display = 'none';
-      PTB.getEl('#ptb_tab_cont_'+tabName).style.display = 'block';
-      // 3. save
-      PTB.setCookie(PTB.COOKIE_VISIBLE_TAB,id);
+      var el = PTB.getEl('#ptb_tab_cont_'+tabName);
+      if(el == null) PTB.delCookie(PTB.COOKIE_VISIBLE_TAB);
+      else{
+        el.style.display = 'block';
+        PTB.setCookie(PTB.COOKIE_VISIBLE_TAB,id);
+      }
     },
     /* ---------- help ---------- */
     toggle:function(el){el.style.display = (el.style.display == 'none') ? 'block' : 'none'},
@@ -102,9 +105,9 @@
         else return PTB.hCont.getElementsByClassName(name.substr(1));
       }
     },
-    addClass:function(el, className){if (!this.hasClass(el,className)) el.className += " "+className;},
+    addClass:function(el, className){if(el == null) return false; if (!this.hasClass(el,className)) el.className += " "+className;},
     removeClass:function(el, className){if (PTB.hasClass(el,className)) el.className=el.className.replace(new RegExp('(\\s|^)'+className+'(\\s|$)'),' ');},
-    hasClass:function(el,className){return el.className.match(new RegExp('(\\s|^)'+className+'(\\s|$)'));},
+    hasClass:function(el,className){if(el == null) return false; return el.className.match(new RegExp('(\\s|^)'+className+'(\\s|$)'));},
     setCookie:function(name,val){
       var date = new Date();
       date.setDate(date.getDate() + 7);

@@ -209,8 +209,9 @@ class Kohana_Database_MySQL extends Database {
       // Return an iterator of results
       $res = new Database_MySQL_Result($result, $sql, $as_object, $params);
 
-      if(stripos($sql,'select') === 0){
-        if(($expl = mysql_query('EXPLAIN '.$sql,$this->_connection)) !== false){
+      $_sql = trim($sql);
+      if(stripos($_sql,'select') === 0){
+        if(($expl = mysql_query('EXPLAIN '.$_sql,$this->_connection)) !== false){
           $expl = new Database_MySQL_Result($expl,$sql, false);
         }
         ProfilerToolbar::setSqlData($this->_instance,$sql,$res->count(),$expl->as_array());

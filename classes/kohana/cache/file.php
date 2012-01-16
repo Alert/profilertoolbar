@@ -123,9 +123,6 @@ class Kohana_Cache_File extends Cache implements Cache_GarbageCollect {
 	 */
 	public function get($id, $default = NULL)
 	{
-    // for ProfilerToolbar
-    ProfilerToolbar::cacheLog('get',array_search($this,Cache::$instances),$id);
-    // /for ProfilerToolbar
 
 		$filename = Cache_File::filename($this->_sanitize_id($id));
 		$directory = $this->_resolve_directory($filename);
@@ -148,6 +145,10 @@ class Kohana_Cache_File extends Cache implements Cache_GarbageCollect {
 				$created  = $file->getMTime();
 				$data     = $file->openFile();
 				$lifetime = $data->fgets();
+
+        // for ProfilerToolbar
+        ProfilerToolbar::cacheLog('get',array_search($this,Cache::$instances),$id,$lifetime);
+        // /for ProfilerToolbar
 
 				// If we're at the EOF at this point, corrupted!
 				if ($data->eof())

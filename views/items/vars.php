@@ -77,7 +77,7 @@
       <tr>
         <td class="num"><?=++$i;?></td>
         <td><?=$k;?></td>
-        <td><?=$v;?></td>
+        <td><?php if(is_scalar($v)) echo $v; else {echo '<pre>';var_dump($v);echo '</pre>';}?></td>
       </tr>
       <?php endforeach;?>
       </tbody>

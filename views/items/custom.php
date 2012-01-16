@@ -4,7 +4,7 @@
   <ul class="ptb_tabs">
     <li id="ptb_tab_custom_default">default</li>
   </ul>
-  <div id="ptb_tab_cont_custom_default" class="ptb_tab_cont">&nbsp;&nbsp;—</div>
+  <div id="ptb_tab_cont_custom_default" class="ptb_tab_cont"></div>
   <?php else:?>
 
     <ul class="ptb_tabs">

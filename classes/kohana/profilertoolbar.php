@@ -76,8 +76,8 @@ class Kohana_ProfilerToolbar {
             'sql'=>$benchName,
             'time'=>$stats['total']['time'],
             'memory'=>$stats['total']['memory'],
-            'rows'=>self::$_SQL[$sqlGroup][$benchName]['rows'],
-            'explain'=>self::$_SQL[$sqlGroup][$benchName]['explain'],
+            'rows'=>(isset(self::$_SQL[$sqlGroup][$benchName]))?self::$_SQL[$sqlGroup][$benchName]['rows']:null,
+            'explain'=>(isset(self::$_SQL[$sqlGroup][$benchName]))?self::$_SQL[$sqlGroup][$benchName]['explain']:null,
           );
           $sql[$sqlGroup]['total']['time'] += $stats['total']['time'];
           $sql[$sqlGroup]['total']['memory'] += $stats['total']['memory'];
@@ -120,6 +120,13 @@ class Kohana_ProfilerToolbar {
   }
 
   private static function getCache(){
+    if(!isset(self::$_CACHE['total'])) self::$_CACHE['total'] = array('get'=>0,'set'=>0,'del'=>0);
+    if(!isset(self::$_CACHE['data'])) {
+      self::$_CACHE['data']['default'] = array(
+        'total' =>  array('get'=>0,'set'=>0,'del'=>0),
+        'data'  =>  array(),
+      );
+    }
     return self::$_CACHE;
   }
 

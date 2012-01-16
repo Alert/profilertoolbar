@@ -1,4 +1,10 @@
 <div id="ptb_data_cont_sql" class="ptb_data_cont">
+  <?php if(empty($_VARS_SQL)):?>
+    <ul class="ptb_tabs">
+      <li id="ptb_tab_sql_default">default <span>(0)</span></li>
+    </ul>
+    <div id="ptb_tab_cont_sql_default" class="ptb_tab_cont"></div>
+  <?php else:?>
   <ul class="ptb_tabs">
   <?php foreach($_VARS_SQL as $k=>$v):?>
     <li id="ptb_tab_sql<?=$k;?>"><?=$k;?> <span>(<?=$v['total']['count'];?>)</span></li>
@@ -80,4 +86,5 @@
     </table>
   </div>
   <?php endforeach;?>
+  <?php endif;?>
 </div>
