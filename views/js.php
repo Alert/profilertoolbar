@@ -5,99 +5,107 @@
     COOKIE_VISIBLE:'PTB_visible',
     COOKIE_VISIBLE_ITEM:'PTB_visible_item',
     COOKIE_VISIBLE_TAB:'PTB_visible_tab',
+    VISIBLE:false,
+    VISIBLE_ITEM:null,
+    VISIBLE_TAB:null,
     init:function (){
-      // handler of content element
-      PTB.hCont = PTB.getEl('#ptb');
-      // handler of toolbar element
-      PTB.hToolbar = PTB.getEl('#ptb_toolbar');
-      // onclick event listener of toolbar elements
-      PTB.hToolbar.onclick = PTB.onClickTbEl;
-      // onclick event listener of TABs
+      PTB.hCont = PTB.getEl('#ptb'); // handler of main content
+      PTB.hToolbar = PTB.getEl('#ptb_toolbar'); // handler of toolbar element
+      PTB.hToolbar.onclick = PTB.onClickToolbarEl; // onclick event listener of toolbar elements
+      // onclick event listener of data TABs
       var tabs = PTB.getEl('.ptb_tabs');
-      for(var i=0;i<tabs.length;i++) tabs[i].onclick = function(e){
-        var el = e.target || e.srcElement || e.originalTarget;
-        if(el.nodeName.toLowerCase() == 'span') PTB.toggleTab(el.parentNode.id);
-        else PTB.toggleTab(el.id);
-      };
+      for(var i=0;i<tabs.length;i++) tabs[i].onclick = PTB.onClickDataTab;
       // onclick event listener of explain sql
       var els = PTB.getEl('.explain');
-      for(i=0;i<els.length;i++) els[i].onclick = function(e){
-        var el = e.target || e.srcElement || e.originalTarget;
-        PTB.toggle(el.nextElementSibling);
-      };
+      for(i=0;i<els.length;i++) els[i].onclick = PTB.onClickExplainQuery;
       // show toolbar/item/tab if need
-      if(PTB.getCookie(PTB.COOKIE_VISIBLE) === undefined) PTB.toggleToolbar();
-      if((tmp = PTB.getCookie(PTB.COOKIE_VISIBLE_TAB))  !== undefined) PTB.toggleTab(tmp);
-      if((tmp = PTB.getCookie(PTB.COOKIE_VISIBLE_ITEM)) !== undefined) PTB.toggleToolbarItem(tmp);
+      if(PTB.getCookie(PTB.COOKIE_VISIBLE) == 'true') PTB.toggleToolbar();
+      if((tmp = PTB.getCookie(PTB.COOKIE_VISIBLE_TAB)) != undefined) PTB.toggleTab(tmp);
+      if((tmp = PTB.getCookie(PTB.COOKIE_VISIBLE_ITEM)) != undefined) PTB.toggleToolbarItem(tmp);
     },
 
-    onClickTbEl:function(e){
+    onClickToolbarEl:function(e){
       var el = e.srcElement || e.target;
       if(el.nodeName.toLowerCase() != 'li') el = el.parentNode;
       switch (el.className){
         case 'hide':
         case 'show':PTB.toggleToolbar();break;
         case 'info':break;
-        default:PTB.toggleToolbarItem(el.className);
+        default:PTB.toggleToolbarItem('ptb_data_cont_'+el.className);
       }
+    },
+    onClickDataTab:function(e){
+      var el = e.target || e.srcElement || e.originalTarget;
+      if(el.nodeName.toLowerCase() == 'span') PTB.toggleTab(el.parentNode.id);
+      else PTB.toggleTab(el.id);
+    },
+    onClickExplainQuery:function(e){
+      var el = e.target || e.srcElement || e.originalTarget;
+      PTB.toggle(el.nextElementSibling);
     },
 
     toggleToolbar:function(){
       var items  = PTB.getEl('#ptb_toolbar').childNodes;
       for(var i=0;i<items.length;i++) {
-        if(items[i].nodeName.toLowerCase() == 'li') PTB.toggle(items[i]);
+        if(items[i].nodeName.toLowerCase() == 'li') items[i].style.display = (PTB.VISIBLE)?'none':'block';
       }
-      PTB.toggle(PTB.getEl('#ptb_data'));
+      items[items.length-2].style.display = (PTB.VISIBLE)?'block':'none';
+      PTB.getEl('#ptb_data').style.display = (PTB.VISIBLE)?'none':'block';
       // save
-      if(PTB.getEl('#ptb_data').style.display == 'none') PTB.delCookie(PTB.COOKIE_VISIBLE);
-      else PTB.setCookie(PTB.COOKIE_VISIBLE,"1");
+      PTB.VISIBLE = !PTB.VISIBLE;
+      PTB.setCookie(PTB.COOKIE_VISIBLE,PTB.VISIBLE);
     },
-    toggleToolbarItem:function(name){
-      var el = PTB.getEl('#ptb_data_cont_'+name);
+    toggleToolbarItem:function(id){
+      var el = PTB.getEl('#'+id);
       if(el === null) return;
-      // hide only this tab if that was visible
-      if(el.style.display == 'block') PTB.toggle(el);
-      else{ // hide all and show active tab
+      if(el.id == PTB.VISIBLE_ITEM){
+        el.style.display = 'none';
+        PTB.VISIBLE_ITEM = null;
+        PTB.setCookie(PTB.COOKIE_VISIBLE_ITEM,null);
+      }else{
+        // hide all and show active item
         var items = PTB.getEl('.ptb_data_cont');
         for(var i=0;i<items.length;i++) items[i].style.display = 'none';
-        PTB.toggle(el);
-        // if not open at least one tab, then open the first
-        var opened = false;
-        var els = el.childNodes[1].childNodes;
-        for(i=0;i<els.length;i++){
-          if(els[i].nodeName.toLowerCase() == 'li' && PTB.hasClass(els[i],'use'))
-            opened = true;
+        el.style.display = 'block';
+        // save
+        PTB.VISIBLE_ITEM = id;
+        PTB.setCookie(PTB.COOKIE_VISIBLE_ITEM,PTB.VISIBLE_ITEM);
+        // if this item don't have opened tabs - open first tab
+        var tabs = el.childNodes[1].childNodes;
+        var open = false;
+        for(i=0;i<tabs.length;i++){
+          if(PTB.VISIBLE_TAB !== null && tabs[i].id == PTB.VISIBLE_TAB){
+            open = true;
+            break;
+          }
         }
-        if(!opened) PTB.toggleTab(els[1].id);
+        if(!open) PTB.toggleTab(tabs[1].id);
       }
-      // save
-      if(el.style.display == 'none') PTB.delCookie(PTB.COOKIE_VISIBLE_ITEM);
-      else PTB.setCookie(PTB.COOKIE_VISIBLE_ITEM,name);
     },
     toggleTab:function(id){
       var tabName = id.substr('ptb_tab_'.length);
-      var tabEl = PTB.getEl('#'+id);
-      // 1. set use class to active tab
+      // del use class from all tabs
       var tabs = PTB.getEl('.ptb_tabs');
       for(var i=0;i<tabs.length;i++){
-        var items = tabs[i].childNodes;
-        for(var j=0;j<items.length;j++) {
-          if(items[j].nodeName.toLowerCase() == 'li') PTB.removeClass(items[j],'use');
+        for(var j=0;j<tabs[i].childNodes.length;j++) {
+          if(tabs[i].childNodes[j].nodeName.toLowerCase() == 'li') PTB.removeClass(tabs[i].childNodes[j],'use');
         }
       }
-      PTB.addClass(tabEl,'use');
-      // 2. show tab_content for this tab and save
-      items = PTB.getEl('.ptb_tab_cont');
-      for(i=0;i<items.length;i++) items[i].style.display = 'none';
-      var el = PTB.getEl('#ptb_tab_cont_'+tabName);
-      if(el == null) PTB.delCookie(PTB.COOKIE_VISIBLE_TAB);
-      else{
-        el.style.display = 'block';
-        PTB.setCookie(PTB.COOKIE_VISIBLE_TAB,id);
+      // set use class to active tab
+      PTB.addClass(PTB.getEl('#'+id),'use');
+      // hide content for all tabs
+      var cont = PTB.getEl('.ptb_tab_cont');
+      for(i=0;i<cont.length;i++) cont[i].style.display = 'none';
+      // show content for active tab
+      cont = PTB.getEl('#ptb_tab_cont_'+tabName);
+      if(cont != null){
+        cont.style.display = 'block';
+        PTB.VISIBLE_TAB = id;
+        PTB.setCookie(PTB.COOKIE_VISIBLE_TAB,PTB.VISIBLE_TAB);
       }
     },
     /* ---------- help ---------- */
-    toggle:function(el){el.style.display = (el.style.display == 'none') ? 'block' : 'none'},
+    toggle:function(el){el.style.display = (el.style.display == 'block' || el.style.display == '') ? 'none' : 'block'},
     getEl:function(name){
       if(name.substr(0,1) == '#') return document.getElementById(name.substr(1));
       else{

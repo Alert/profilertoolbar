@@ -136,6 +136,9 @@ class Kohana_Cache_File extends Cache implements Cache_GarbageCollect {
 			// If file does not exist
 			if ( ! $file->isFile())
 			{
+        // for ProfilerToolbar
+        ProfilerToolbar::cacheLog('get',array_search($this,Cache::$instances),$id);
+        // /for ProfilerToolbar
 				// Return default value
 				return $default;
 			}

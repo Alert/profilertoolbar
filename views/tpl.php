@@ -15,9 +15,9 @@
     <?php $_total = 0; foreach($_VARS_CUSTOM as $v) $_total += count($v); ?>
     <li class="custom">   <span class="icon"></span> YOUR <span class="total">(<?=$_total;?>)</span></li>
     <li class="hide"      title="Hide Profiler Toolbar"><span class="icon"></span></li>
-    <li class="show"      title="Show Profiler Toolbar" style="display: none;"><span class="icon"></span></li>
+    <li class="show"      title="Show Profiler Toolbar"><span class="icon"></span></li>
   </ul>
-  <div id="ptb_data" class="ptb_bg">
+  <div id="ptb_data" class="ptb_bg" style="display: none;">
     <?=View::factory('items/sql')->render();?>
     <?=View::factory('items/cache')->render();?>
     <?=View::factory('items/vars')->render();?>

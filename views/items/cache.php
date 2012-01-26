@@ -1,4 +1,4 @@
-<div id="ptb_data_cont_cache" class="ptb_data_cont">
+<div id="ptb_data_cont_cache" class="ptb_data_cont" style="display: none;">
   <ul class="ptb_tabs">
   <?php foreach($_VARS_CACHE['data'] as $k=>$v):?>
     <li id="ptb_tab_cache_<?=$k;?>"><?=$k;?> <span>(<?=$v['total']['get']+$v['total']['set']+$v['total']['del'];?>)</span></li>
@@ -21,7 +21,7 @@
             <td class="num"><?=++$i;?></td>
             <td class="tCenter"><?=$item['action'];?></td>
             <td><?=$item['id'];?></td>
-            <td class="tRight"><?=$item['lifetime'];?> s</td>
+            <td class="tRight"><?=(!empty($item['lifetime']))?$item['lifetime'].' s':'—';?></td>
           </tr>
         <?php endforeach;?>
       </tbody>

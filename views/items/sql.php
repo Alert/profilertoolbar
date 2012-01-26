@@ -1,4 +1,4 @@
-<div id="ptb_data_cont_sql" class="ptb_data_cont">
+<div id="ptb_data_cont_sql" class="ptb_data_cont" style="display: none;">
   <?php if(empty($_VARS_SQL)):?>
     <ul class="ptb_tabs">
       <li id="ptb_tab_sql_default">default <span>(0)</span></li>

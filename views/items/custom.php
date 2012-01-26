@@ -30,7 +30,13 @@
             <?php elseif(is_scalar($item)):?>
               <?=$item;?>
             <?php else:?>
-              <pre><?php var_dump($item);?></pre>
+              <pre><?php
+                  ob_start();
+                  var_dump($item);
+                  $data = ob_get_clean();
+                  echo preg_replace('/=>\n\s+/', ' => ',$data);
+                ?>
+              </pre>
             <?php endif;?>
           </td>
         </tr>

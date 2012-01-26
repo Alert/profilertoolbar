@@ -1,4 +1,4 @@
-<div id="ptb_data_cont_vars" class="ptb_data_cont">
+<div id="ptb_data_cont_vars" class="ptb_data_cont" style="display: none;">
   <ul class="ptb_tabs">
     <li id="ptb_tab_varsPGF">$_POST<span>(<?=count($_POST);?>)</span> / $_GET<span>(<?=count($_GET);?>)</span> / $_FILES<span>(<?=count($_FILES);?>)</span></li>
     <li id="ptb_tab_varsCS">$_COOKIE<span>(<?=count($_COOKIE);?>)</span> / $_SESSION<span>(<?=count($_SESSION);?>)</span></li>
@@ -43,17 +43,16 @@
         </tr>
       </thead>
       <tbody>
-      <?php if(empty($_FILES)):?><tr><td colspan="7" class="empty">—</td></tr><?php endif;?>
-      <?php $i=0; foreach ($_FILES as $k => $v):?>
+      <?php if(empty($_VARS_GFILES)):?><tr><td colspan="7" class="empty">—</td></tr><?php endif;?>
+      <?php $i=0; foreach ($_VARS_GFILES as $k => $v):?>
       <tr>
         <td class="num"><?=++$i;?></td>
-        <td><?=$k;?></td>
+        <td class="nowrap"><?=$k;?></td>
         <td><?=$v['name'];?></td>
         <td><?=$v['type'];?></td>
         <td><?=$v['tmp_name'];?></td>
         <td><?=$v['error'];?></td>
         <td><?=ProfilerToolbar::formatMemory($v['size']);?></td>
-        
       </tr>
       <?php endforeach;?>
       </tbody>

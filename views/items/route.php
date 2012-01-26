@@ -1,4 +1,4 @@
-<div id="ptb_data_cont_route" class="ptb_data_cont">
+<div id="ptb_data_cont_route" class="ptb_data_cont" style="display: none;">
   <ul class="ptb_tabs">
     <li id="ptb_tab_route">route <span>(<?=$_VARS_ROUTES['total']['count'];?>)</span></li>
   </ul>

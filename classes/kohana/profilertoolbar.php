@@ -3,7 +3,7 @@
 class Kohana_ProfilerToolbar {
 
   private static $_instance = null;
-  public static $version = '0.0.1 beta';
+  public  static $version = '0.0.2 beta';
   private static $_cfg = null;
   private static $_CACHE = array();
   private static $_SQL = array();
@@ -59,6 +59,7 @@ class Kohana_ProfilerToolbar {
         $all[$k] = $file;
       }
     }
+
     return $all;
   }
 
@@ -177,8 +178,8 @@ class Kohana_ProfilerToolbar {
   }
 
   public static function formatMemory($memory){
-    if(($p = self::cfg('format.memory')) == 'kb') {$memory /= 1024;}
-    else{$memory /= 1024*1024;}
+    if(($p = self::cfg('format.memory')) == 'kb') $memory /= 1024;
+    else $memory /= 1024*1024;
     return number_format($memory)." $p";
   }
 
