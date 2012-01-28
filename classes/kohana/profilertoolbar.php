@@ -1,9 +1,13 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
+/**
+ * @author  Aleksey <alertdevelop@gmail.com>
+ * @version 0.0.3
+ * @see     http://alertdevelop.ru/projects/profilertoolbar
+*/
 class Kohana_ProfilerToolbar {
 
-  private static $_instance = null;
-  public  static $version = '0.0.2 beta';
+  public  static $version = '0.0.3';
   private static $_cfg = null;
   private static $_CACHE = array();
   private static $_SQL = array();
@@ -11,37 +15,34 @@ class Kohana_ProfilerToolbar {
 
   public static function render($print = false){
     $tpl = View::factory('tpl');
-    
-    $_VARS_FILES = self::getFiles();
-    $tpl->bind_global('_VARS_FILES',$_VARS_FILES);
 
-    $_VARS_SQL = self::getSql();
-    $tpl->bind_global('_VARS_SQL',$_VARS_SQL);
-    
-    $_VARS_ROUTES = self::getRoutes();
-    $tpl->bind_global('_VARS_ROUTES',$_VARS_ROUTES);
-    
-    $_VARS_GFILES = self::getGFiles();
-    $tpl->bind_global('_VARS_GFILES',$_VARS_GFILES);
+    $data = array(
+      '_VARS_APP_TIME'  =>'getAppTime',
+      '_VARS_APP_MEMORY'=>'getAppMemory',
+      '_VARS_SQL'       =>'getSql',
+      '_VARS_CACHE'     =>'getCache',
+      '_VARS_POST'      =>'getPost',
+      '_VARS_GET'       =>'getGet',
+      '_VARS_FILES'     =>'getFiles',
+      '_VARS_COOKIE'    =>'getCookie',
+      '_VARS_SESSION'   =>'getSession',
+      '_VARS_SERVER'    =>'getServer',
+      '_VARS_ROUTES'    =>'getRoutes',
+      '_VARS_INCFILES'  =>'getIncFiles',
+      '_VARS_CUSTOM'    =>'getCustom',
+    );
 
-    $_VARS_CACHE = self::getCache();
-    $tpl->bind_global('_VARS_CACHE',$_VARS_CACHE);
-    
-    $_VARS_APP_TIME = self::getAppTime();
-    $tpl->bind_global('_VARS_APP_TIME',$_VARS_APP_TIME);
-    
-    $_VARS_APP_MEMORY = self::getAppMemory();
-    $tpl->bind_global('_VARS_APP_MEMORY',$_VARS_APP_MEMORY);
-
-    $_VARS_CUSTOM = self::getCustom();
-    $tpl->bind_global('_VARS_CUSTOM',$_VARS_CUSTOM);
+    foreach ($data as $var=>$method) {
+      ${$var} = self::$method();
+      $tpl->bind_global($var,${$var});
+    }
 
     $html = $tpl->render();
     if($print) echo $html;
     return $html;
   }
 
-  private static function getGFiles(){
+  private static function getFiles(){
     $all = array();
     foreach ($_FILES as $k=>$file) {
       if(is_array($file['name'])){
@@ -94,7 +95,7 @@ class Kohana_ProfilerToolbar {
     self::$_SQL[$instance][$sql]['explain'] = $explain;
   }
 
-  private static function getFiles(){
+  private static function getIncFiles(){
     $files = get_included_files();
     $res = array('data'=>array(),'total'=>array('size'=>0,'lines'=>0,'count'=>0));
     foreach ($files as $file) {
@@ -155,6 +156,26 @@ class Kohana_ProfilerToolbar {
     return memory_get_peak_usage(true);
   }
 
+  private static function getPost(){
+    return (isset($_POST))?$_POST:array();
+  }
+
+  private static function getGet(){
+    return (isset($_GET))?$_GET:array();
+  }
+
+  private static function getCookie(){
+    return (isset($_COOKIE))?$_COOKIE:array();
+  }
+
+  private static function getSession(){
+    return (isset($_SESSION))?$_SESSION:array();
+  }
+
+  private static function getServer(){
+    return (isset($_SERVER))?$_SERVER:array();
+  }
+
   private static function getCustom(){
     return self::$_CUSTOM;
   }
@@ -181,6 +202,16 @@ class Kohana_ProfilerToolbar {
     if(($p = self::cfg('format.memory')) == 'kb') $memory /= 1024;
     else $memory /= 1024*1024;
     return number_format($memory)." $p";
+  }
+
+  public static function varDump($var){
+    if(is_bool($var)) return ($var)?'true':'false';
+    elseif(is_scalar($var)) return (string)$var;
+    else{
+      ob_start();
+      var_dump($var);
+      return '<pre>'.preg_replace('/=>\n\s+/', ' => ',ob_get_clean()).'</pre>';
+    }
   }
 
 }

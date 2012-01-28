@@ -1,3 +1,9 @@
+## 0.0.3 (2012-01-28)
+* replaced short tags to log form <?php ?>
+* fixed css bug of incorrect display tab border line in different browsers
+* fixed error when absence of the variable $_SESSION
+* info panel fixed like a menu to top of window
+
 ## 0.0.2 beta (2012-01-26)
 * fixed some bugs
 * changed README.md

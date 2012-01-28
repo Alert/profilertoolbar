@@ -42,6 +42,7 @@
     onClickExplainQuery:function(e){
       var el = e.target || e.srcElement || e.originalTarget;
       PTB.toggle(el.nextElementSibling);
+      PTB.updateDataContPosition();
     },
 
     toggleToolbar:function(){
@@ -80,6 +81,7 @@
           }
         }
         if(!open) PTB.toggleTab(tabs[1].id);
+        else PTB.updateDataContPosition();
       }
     },
     toggleTab:function(id){
@@ -91,6 +93,7 @@
           if(tabs[i].childNodes[j].nodeName.toLowerCase() == 'li') PTB.removeClass(tabs[i].childNodes[j],'use');
         }
       }
+
       // set use class to active tab
       PTB.addClass(PTB.getEl('#'+id),'use');
       // hide content for all tabs
@@ -102,6 +105,15 @@
         cont.style.display = 'block';
         PTB.VISIBLE_TAB = id;
         PTB.setCookie(PTB.COOKIE_VISIBLE_TAB,PTB.VISIBLE_TAB);
+      }
+      PTB.updateDataContPosition();
+    },
+    updateDataContPosition:function(){
+      var cont = PTB.getEl('#ptb_data');
+      if(cont.offsetHeight > PTB.getViewportHeight()){
+        cont.style.position = 'absolute';
+      }else{
+        cont.style.position = 'fixed';
       }
     },
     /* ---------- help ---------- */
@@ -129,6 +141,11 @@
     getCookie:function(name){
       var matches = document.cookie.match(new RegExp("(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"));
       return matches ? decodeURIComponent(matches[1]) : undefined
+    },
+    getViewportHeight:function(){
+      var e = window,a = 'inner';
+      if (!('innerWidth' in window)){a = 'client';e = document.documentElement || document.body;}
+      return e[ a+'Height' ];
     }
     /* ---------- /help ---------- */
   };

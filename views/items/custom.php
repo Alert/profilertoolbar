@@ -9,11 +9,11 @@
 
     <ul class="ptb_tabs">
     <?php foreach($_VARS_CUSTOM as $k=>$v):?>
-      <li id="ptb_tab_custom_<?=$k;?>"><?=$k;?></li>
+      <li id="ptb_tab_custom_<?php echo $k;?>"><?php echo $k;?></li>
     <?php endforeach;?>
     </ul>
     <?php foreach($_VARS_CUSTOM as $k=>$v):?>
-    <div id="ptb_tab_cont_custom_<?=$k;?>" class="ptb_tab_cont">
+    <div id="ptb_tab_cont_custom_<?php echo $k;?>" class="ptb_tab_cont">
       <table>
         <thead>
           <tr>
@@ -23,22 +23,8 @@
         </thead>
       <?php $i=0; foreach($v as $item):?>
         <tr>
-          <td class="num"><?=++$i;?></td>
-          <td>
-            <?php if(is_bool($item)):?>
-              <?=($item)?'true':'false';?>
-            <?php elseif(is_scalar($item)):?>
-              <?=$item;?>
-            <?php else:?>
-              <pre><?php
-                  ob_start();
-                  var_dump($item);
-                  $data = ob_get_clean();
-                  echo preg_replace('/=>\n\s+/', ' => ',$data);
-                ?>
-              </pre>
-            <?php endif;?>
-          </td>
+          <td class="num"><?php echo ++$i;?></td>
+          <td><?php echo ProfilerToolbar::varDump($item);?></td>
         </tr>
       <?php endforeach;?>
       </table>

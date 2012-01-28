@@ -1,16 +1,16 @@
 <div id="ptb_data_cont_vars" class="ptb_data_cont" style="display: none;">
   <ul class="ptb_tabs">
-    <li id="ptb_tab_varsPGF">$_POST<span>(<?=count($_POST);?>)</span> / $_GET<span>(<?=count($_GET);?>)</span> / $_FILES<span>(<?=count($_FILES);?>)</span></li>
-    <li id="ptb_tab_varsCS">$_COOKIE<span>(<?=count($_COOKIE);?>)</span> / $_SESSION<span>(<?=count($_SESSION);?>)</span></li>
+    <li id="ptb_tab_varsPGF">$_POST<span>(<?php echo count($_VARS_POST);?>)</span> / $_GET<span>(<?php echo count($_VARS_GET);?>)</span> / $_FILES<span>(<?php echo count($_VARS_FILES);?>)</span></li>
+    <li id="ptb_tab_varsCS">$_COOKIE<span>(<?php echo count($_VARS_COOKIE);?>)</span> / $_SESSION<span>(<?php echo count($_VARS_SESSION);?>)</span></li>
     <li id="ptb_tab_varsS">$_SERVER</li>
   </ul>
   <div class="ptb_tab_cont" id="ptb_tab_cont_varsPGF">
     <!-- POST/GET/FILES -->
-    <?php $vars = array('POST'=>$_POST,'GET'=>$_GET);?>
+    <?php $vars = array('POST'=>$_VARS_POST,'GET'=>$_VARS_GET);?>
     <?php foreach ($vars as $kvar=>$var):?>
-    <table style="float: left; width: <?=($kvar=='POST')?50:45;?>%;">
+    <table style="float: left; width: <?php echo ($kvar=='POST')?50:45;?>%;">
       <thead>
-        <tr><th colspan="3"><?=$kvar;?></th></tr>
+        <tr><th colspan="3"><?php echo $kvar;?></th></tr>
         <tr>
           <th>№</th>
           <th style="width: 1px;">key</th>
@@ -18,14 +18,15 @@
         </tr>
       </thead>
       <tbody>
-      <?php if(empty($var)):?><tr><td colspan="3" class="empty">—</td></tr><?php endif;?>
+      <?php if(empty($var)):?><tr><td colspan="3" class="empty">—</td></tr><?php else:?>
       <?php $i=0; foreach ($var as $k => $v):?>
-      <tr>
-        <td class="num"><?=++$i;?></td>
-        <td><?=$k;?></td>
-        <td><?=$v;?></td>
-      </tr>
-      <?php endforeach;?>
+        <tr>
+          <td class="num"><?php echo ++$i;?></td>
+          <td><?php echo $k;?></td>
+          <td><?php echo $v;?></td>
+        </tr>
+        <?php endforeach;?>
+      <?php endif;?>
       </tbody>
     </table>
     <?php endforeach;?>
@@ -43,28 +44,29 @@
         </tr>
       </thead>
       <tbody>
-      <?php if(empty($_VARS_GFILES)):?><tr><td colspan="7" class="empty">—</td></tr><?php endif;?>
-      <?php $i=0; foreach ($_VARS_GFILES as $k => $v):?>
-      <tr>
-        <td class="num"><?=++$i;?></td>
-        <td class="nowrap"><?=$k;?></td>
-        <td><?=$v['name'];?></td>
-        <td><?=$v['type'];?></td>
-        <td><?=$v['tmp_name'];?></td>
-        <td><?=$v['error'];?></td>
-        <td><?=ProfilerToolbar::formatMemory($v['size']);?></td>
-      </tr>
-      <?php endforeach;?>
+      <?php if(empty($_VARS_GFILES)):?><tr><td colspan="7" class="empty">—</td></tr><?php else:?>
+        <?php $i=0; foreach ($_VARS_GFILES as $k => $v):?>
+        <tr>
+          <td class="num"><?php echo ++$i;?></td>
+          <td class="nowrap"><?php echo $k;?></td>
+          <td><?php echo $v['name'];?></td>
+          <td><?php echo $v['type'];?></td>
+          <td><?php echo $v['tmp_name'];?></td>
+          <td><?php echo $v['error'];?></td>
+          <td><?php echo ProfilerToolbar::formatMemory($v['size']);?></td>
+        </tr>
+        <?php endforeach;?>
+      <?php endif;?>
       </tbody>
     </table>
   </div>
   <div class="ptb_tab_cont" id="ptb_tab_cont_varsCS">
     <!-- COOKIE/SESSION -->
-    <?php $vars = array('COOKIE'=>$_COOKIE,'SESSION'=>$_SESSION);?>
+    <?php $vars = array('COOKIE'=>$_VARS_COOKIE,'SESSION'=>$_VARS_SESSION);?>
     <?php foreach ($vars as $kvar=>$var):?>
     <table style="float: left; width: 45%;">
       <thead>
-        <tr><th colspan="3"><?=$kvar;?></th></tr>
+        <tr><th colspan="3"><?php echo $kvar;?></th></tr>
         <tr>
           <th>№</th>
           <th style="width: 1px;">key</th>
@@ -72,13 +74,15 @@
         </tr>
       </thead>
       <tbody>
-      <?php $i=0; foreach ($var as $k => $v):?>
-      <tr>
-        <td class="num"><?=++$i;?></td>
-        <td><?=$k;?></td>
-        <td><?php if(is_scalar($v)) echo $v; else {echo '<pre>';var_dump($v);echo '</pre>';}?></td>
-      </tr>
-      <?php endforeach;?>
+      <?php if(empty($var)):?><tr><td colspan="3" class="empty">—</td></tr><?php else:?>
+        <?php $i=0; foreach ($var as $k => $v):?>
+        <tr>
+          <td class="num"><?php echo ++$i;?></td>
+          <td><?php echo $k;?></td>
+          <td><?php echo ProfilerToolbar::varDump($v);?></td>
+        </tr>
+        <?php endforeach;?>
+      <?php endif;?>
       </tbody>
     </table>
     <?php endforeach;?>
@@ -94,11 +98,11 @@
         </tr>
       </thead>
       <tbody>
-      <?php $i=0; foreach ($_SERVER as $k => $v):?>
+      <?php $i=0; foreach ($_VARS_SERVER as $k => $v):?>
       <tr>
-        <td class="num"><?=++$i;?></td>
-        <td><?=$k;?></td>
-        <td><?=$v;?></td>
+        <td class="num"><?php echo ++$i;?></td>
+        <td><?php echo $k;?></td>
+        <td><?php echo $v;?></td>
       </tr>
       <?php endforeach;?>
       </tbody>

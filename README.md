@@ -1,4 +1,4 @@
-ProfilerToolbar v0.0.2 beta for Kohana 3.2
+ProfilerToolbar v0.0.3 beta for Kohana 3.2
 ===============
 ProfilerToolbar it is another realization of the DebugToolbar written by Aaron Forsander, but has additional features.
 
