@@ -1,10 +1,10 @@
 <div id="ptb_data_cont_cache" class="ptb_data_cont" style="display: none;">
   <ul class="ptb_tabs">
-  <?php foreach($_VARS_CACHE['data'] as $k=>$v):?>
+  <?php foreach(ProfilerToolbar::$DATA_CACHE['data'] as $k=>$v):?>
     <li id="ptb_tab_cache_<?php echo $k;?>"><?php echo $k;?> <span>(<?php echo $v['total']['get']+$v['total']['set']+$v['total']['del'];?>)</span></li>
   <?php endforeach;?>
   </ul>
-  <?php $i=0; foreach($_VARS_CACHE['data'] as $instName=>$inst):?>
+  <?php $i=0; foreach(ProfilerToolbar::$DATA_CACHE['data'] as $instName=>$inst):?>
   <div id="ptb_tab_cont_cache_<?php echo $instName;?>" class="ptb_tab_cont">
     <table>
       <thead>

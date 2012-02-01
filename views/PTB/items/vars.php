@@ -1,12 +1,12 @@
 <div id="ptb_data_cont_vars" class="ptb_data_cont" style="display: none;">
   <ul class="ptb_tabs">
-    <li id="ptb_tab_varsPGF">$_POST<span>(<?php echo count($_VARS_POST);?>)</span> / $_GET<span>(<?php echo count($_VARS_GET);?>)</span> / $_FILES<span>(<?php echo count($_VARS_FILES);?>)</span></li>
-    <li id="ptb_tab_varsCS">$_COOKIE<span>(<?php echo count($_VARS_COOKIE);?>)</span> / $_SESSION<span>(<?php echo count($_VARS_SESSION);?>)</span></li>
+    <li id="ptb_tab_varsPGF">$_POST<span>(<?php echo count(ProfilerToolbar::$DATA_POST);?>)</span> / $_GET<span>(<?php echo count(ProfilerToolbar::$DATA_GET);?>)</span> / $_FILES<span>(<?php echo count(ProfilerToolbar::$DATA_FILES);?>)</span></li>
+    <li id="ptb_tab_varsCS">$_COOKIE<span>(<?php echo count(ProfilerToolbar::$DATA_COOKIE);?>)</span> / $_SESSION<span>(<?php echo count(ProfilerToolbar::$DATA_SESSION);?>)</span></li>
     <li id="ptb_tab_varsS">$_SERVER</li>
   </ul>
   <div class="ptb_tab_cont" id="ptb_tab_cont_varsPGF">
     <!-- POST/GET/FILES -->
-    <?php $vars = array('POST'=>$_VARS_POST,'GET'=>$_VARS_GET);?>
+    <?php $vars = array('POST'=>ProfilerToolbar::$DATA_POST,'GET'=>ProfilerToolbar::$DATA_GET);?>
     <?php foreach ($vars as $kvar=>$var):?>
     <table style="float: left; width: <?php echo ($kvar=='POST')?50:45;?>%;">
       <thead>
@@ -44,8 +44,8 @@
         </tr>
       </thead>
       <tbody>
-      <?php if(empty($_VARS_GFILES)):?><tr><td colspan="7" class="empty">—</td></tr><?php else:?>
-        <?php $i=0; foreach ($_VARS_GFILES as $k => $v):?>
+      <?php if(empty(ProfilerToolbar::$DATA_FILES)):?><tr><td colspan="7" class="empty">—</td></tr><?php else:?>
+        <?php $i=0; foreach (ProfilerToolbar::$DATA_FILES as $k => $v):?>
         <tr>
           <td class="num"><?php echo ++$i;?></td>
           <td class="nowrap"><?php echo $k;?></td>
@@ -62,7 +62,7 @@
   </div>
   <div class="ptb_tab_cont" id="ptb_tab_cont_varsCS">
     <!-- COOKIE/SESSION -->
-    <?php $vars = array('COOKIE'=>$_VARS_COOKIE,'SESSION'=>$_VARS_SESSION);?>
+    <?php $vars = array('COOKIE'=>ProfilerToolbar::$DATA_COOKIE,'SESSION'=>ProfilerToolbar::$DATA_SESSION);?>
     <?php foreach ($vars as $kvar=>$var):?>
     <table style="float: left; width: 45%;">
       <thead>
@@ -98,7 +98,7 @@
         </tr>
       </thead>
       <tbody>
-      <?php $i=0; foreach ($_VARS_SERVER as $k => $v):?>
+      <?php $i=0; foreach (ProfilerToolbar::$DATA_SERVER as $k => $v):?>
       <tr>
         <td class="num"><?php echo ++$i;?></td>
         <td><?php echo $k;?></td>

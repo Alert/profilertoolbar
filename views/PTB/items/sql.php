@@ -1,5 +1,7 @@
+<?php $SHOW_EXPLAIN = ProfilerToolbar::cfg('html.showSqlExplain');?>
+
 <div id="ptb_data_cont_sql" class="ptb_data_cont" style="display: none;">
-  <?php if(empty($_VARS_SQL)):?>
+  <?php if(empty(ProfilerToolbar::$DATA_SQL)):?>
     <ul class="ptb_tabs">
       <li id="ptb_tab_sql_default">default <span>(0)</span></li>
     </ul>
@@ -8,11 +10,11 @@
     </div>
   <?php else:?>
   <ul class="ptb_tabs">
-  <?php foreach($_VARS_SQL as $k=>$v):?>
+  <?php foreach(ProfilerToolbar::$DATA_SQL as $k=>$v):?>
     <li id="ptb_tab_sql<?php echo $k;?>"><?php echo $k;?> <span>(<?php echo $v['total']['count'];?>)</span></li>
   <?php endforeach;?>
   </ul>
-  <?php foreach($_VARS_SQL as $k=>$group):?>
+  <?php foreach(ProfilerToolbar::$DATA_SQL as $k=>$group):?>
   <div id="ptb_tab_cont_sql<?php echo $k;?>" class="ptb_tab_cont">
     <table>
       <thead>
@@ -29,11 +31,11 @@
         <tr>
           <td class="num"><?php echo $i+1;?></td>
           <td>
-            <?php if(!empty($v['explain'])):?>
+            <?php if($SHOW_EXPLAIN && !empty($v['explain'])):?>
               <a href="#" class="explain" title="show EXPLAIN query">EXPLAIN</a>
             <?php endif;?>
             <?php echo $v['sql'];?>
-            <?php if(!empty($v['explain'])):?>
+            <?php if($SHOW_EXPLAIN && !empty($v['explain'])):?>
             <table style="display: none;">
               <thead>
               <tr>

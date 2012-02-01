@@ -1,47 +1,19 @@
-ProfilerToolbar v0.0.3 for Kohana 3.2
+ProfilerToolbar v0.1.1 beta for Kohana 3.2
 ===============
 ProfilerToolbar it is another realization of the DebugToolbar written by Aaron Forsander, but has additional features.
 
-**Demo** and description: http://alertdevelop.ru/projects/profilertoolbar
+**Demo**, description and usage instructions: http://alertdevelop.ru/projects/profilertoolbar
 
-Usage
+How it looks
 -----
 
-* Download project and put files into a folder called 'profiletoolbar' under modules.
-* Enable Module. **IMPORTANT!** The ProfilerToolbar must be connected before modules of Cached and Database. Because the ProfilerToolbar replaces some files of them.
+**HTML output**
 
-<pre>
-Kohana::modules(array(
-   ...
-   'profilertoolbar' => MODPATH.'profilertoolbar',
-   'cache'           => MODPATH.'cache',
-   'database'        => MODPATH.'database',
-   ...
-));
-</pre>
+![Swipe View](http://alertdevelop.ru/img/profilertoolbar/ptb1.png)
 
-* In the main template write:
+**FireBug output**
 
-~~~
-<html>
-  <body>
-    ...
-    content
-    ...
-    <?php ProfilerToolbar::render(true);?>
-  </body>
-</html>
-~~~
+![Swipe View](http://alertdevelop.ru/img/profilertoolbar/firebug_short.png)
 
-* rejoice!
 
-How to add your data
---------------------
-Example:
-<pre>
-ProfilerToolbar::addData('first tab','test string');
-ProfilerToolbar::addData('first tab',rand(1, 1000)/ rand(1, 1000));
-ProfilerToolbar::addData('first tab',$user);
-ProfilerToolbar::addData('first tab',$this->request->headers());
-ProfilerToolbar::addData('second tab','other data');
-</pre>
+For more information please visit http://alertdevelop.ru/projects/profilertoolbar
