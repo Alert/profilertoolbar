@@ -3,6 +3,7 @@ return array(
   // rendered panel data settings
   'html'=>array(
     'enabled'         => true, // if set FALSE, panel don't be rendered on page
+
     'showTotalInfo'   => true, // show application time and memory peak usage
     'showSql'         => true, // show sql queries
     'showSqlExplain'  => true, // show EXPLAIN for all SELECT queries
@@ -15,6 +16,8 @@ return array(
   // firebug data settings
   'firebug'=>array(
     'enabled'         => true, // if set FALSE, panel don't be shown in firebug
+    'showEverywhere'  => true, // if set TRUE you don't need write ProfilerToolbar::firebug(); they will show in all Controllers
+
     'showTotalInfo'   => true, // show application time and memory peak usage
     'showSql'         => true, // show sql queries
     'showSqlExplain'  => true, // show EXPLAIN for all SELECT queries
