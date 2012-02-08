@@ -32,12 +32,12 @@
     <li class="show"      title="Show Profiler Toolbar"><span class="icon"></span></li>
   </ul>
   <div id="ptb_data" class="ptb_bg" style="display: none;">
-    <?php if(ProfilerToolbar::cfg('html.showSql'))    echo View::factory('PTB/items/sql')->render();?>
-    <?php if(ProfilerToolbar::cfg('html.showCache'))  echo View::factory('PTB/items/cache')->render();?>
-    <?php if(ProfilerToolbar::cfg('html.showVars'))   echo View::factory('PTB/items/vars')->render();?>
-    <?php if(ProfilerToolbar::cfg('html.showRoutes')) echo View::factory('PTB/items/route')->render();?>
-    <?php if(ProfilerToolbar::cfg('html.showFiles'))  echo View::factory('PTB/items/files')->render();?>
-    <?php if(ProfilerToolbar::cfg('html.showCustom')) echo View::factory('PTB/items/custom')->render();?>
+    <?php if(ProfilerToolbar::cfg('html.showSql'))      echo View::factory('PTB/items/sql')->render();?>
+    <?php if(ProfilerToolbar::cfg('html.showCache'))    echo View::factory('PTB/items/cache')->render();?>
+    <?php if(ProfilerToolbar::cfg('html.showVars'))     echo View::factory('PTB/items/vars')->render();?>
+    <?php if(ProfilerToolbar::cfg('html.showRoutes'))   echo View::factory('PTB/items/route')->render();?>
+    <?php if(ProfilerToolbar::cfg('html.showIncFiles')) echo View::factory('PTB/items/files')->render();?>
+    <?php if(ProfilerToolbar::cfg('html.showCustom'))   echo View::factory('PTB/items/custom')->render();?>
   </div>
 </div>
 <!-- ============================= /PROFILER TOOLBAR ============================= -->

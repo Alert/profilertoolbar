@@ -1,3 +1,7 @@
+## 0.1.3 (2012-02-08)
+* add support PDO
+* fixed some bugs
+
 ## 0.1.2 (2012-02-04)
 * override "after" method of base Controller for display FireBug info at all Controllers
 * add "firebug.showEverywhere" param in config

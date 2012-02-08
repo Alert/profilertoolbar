@@ -14,11 +14,25 @@
         </tr>
       </thead>
       <tbody>
-      <?php $docRoot = strlen(DOCROOT);?>
+      <?php
+        $DOCROOT_sep = strlen(DOCROOT);
+        $SYSPATH_sep = strrpos(substr(SYSPATH,0,strlen(SYSPATH)-1),DIRECTORY_SEPARATOR)+1;
+        $APPPATH_sep = strrpos(substr(APPPATH,0,strlen(APPPATH)-1),DIRECTORY_SEPARATOR)+1;
+        $MODPATH_sep = strrpos(substr(MODPATH,0,strlen(MODPATH)-1),DIRECTORY_SEPARATOR)+1;
+      ?>
       <?php foreach(ProfilerToolbar::$DATA_INC_FILES['data'] as $i=>$file):?>
         <tr>
           <td class="num"><?php echo $i+1;?></td>
-          <td><span style="color: #4a4a4a;"><?php echo DOCROOT;?></span><?php echo substr($file['name'],$docRoot);?></td>
+          <td>
+            <?php
+              if(strpos($file['name'],SYSPATH) === 0)     $sep = $SYSPATH_sep;
+              elseif(strpos($file['name'],MODPATH) === 0) $sep = $MODPATH_sep;
+              elseif(strpos($file['name'],APPPATH) === 0) $sep = $APPPATH_sep;
+              elseif(strpos($file['name'],DOCROOT) === 0) $sep = $DOCROOT_sep;
+              else{$sep = 0;}
+            ?>
+            <span style="color: #4a4a4a;"><?php echo substr($file['name'],0,$sep);?></span><?php echo substr($file['name'],$sep);?>
+          </td>
           <td class="tRight"><?php echo ProfilerToolbar::formatMemory($file['size']);?></td>
           <td class="tRight"><?php echo number_format($file['lines']);?></td>
           <td class="tCenter" style="color: #4a4a4a;">

@@ -149,6 +149,12 @@
     }
     /* ---------- /help ---------- */
   };
-  window.onload = PTB.init;
+
+  // run init
+  if(document.addEventListener){
+    window.addEventListener('load',PTB.init,false);
+  }else if(document.attachEvent){
+    window.attachEvent("onload",PTB.init);
+  }
 
 </script>
