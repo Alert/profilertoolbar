@@ -23,7 +23,7 @@
         <tr>
           <td class="num"><?php echo ++$i;?></td>
           <td><?php echo $k;?></td>
-          <td><?php echo $v;?></td>
+          <td><?php echo HTML::chars($v);?></td>
         </tr>
         <?php endforeach;?>
       <?php endif;?>
@@ -102,7 +102,7 @@
       <tr>
         <td class="num"><?php echo ++$i;?></td>
         <td><?php echo $k;?></td>
-        <td><?php echo $v;?></td>
+        <td><?php echo ProfilerToolbar::varDump($v);?></td>
       </tr>
       <?php endforeach;?>
       </tbody>

@@ -8,7 +8,7 @@
 */
 class Kohana_ProfilerToolbar {
 
-  public  static $version = '0.1.3';
+  public  static $version = '0.1.4';
   public  static $kohana_version = '3.2';
   private static $_cfg = null;
   /* @var FirePHP */
@@ -426,11 +426,14 @@ class Kohana_ProfilerToolbar {
 
   public static function varDump($var){
     if(is_bool($var)) return ($var)?'true':'false';
-    elseif(is_scalar($var)) return (string)$var;
+    elseif(is_scalar($var)) return HTML::chars($var);
     else{
       ob_start();
       var_dump($var);
-      return '<pre>'.preg_replace('/=>\n\s+/', ' => ',ob_get_clean()).'</pre>';
+      $data = ob_get_clean();
+      $data = preg_replace('/=>\n\s+/', ' => ',$data);
+      $data = HTML::chars($data);
+      return '<pre>'.$data.'</pre>';
     }
   }
 

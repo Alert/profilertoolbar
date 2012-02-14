@@ -1,3 +1,6 @@
+## 0.1.4 (2012-02-14)
+* add htmlspecialchars() to output vars
+
 ## 0.1.3 (2012-02-08)
 * add support PDO
 * fixed some bugs
