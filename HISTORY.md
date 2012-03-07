@@ -1,3 +1,7 @@
+## 0.1.5 (2012-03-07)
+* change parameters order of ProfilerToolbar::addData() method
+* fixed css bug of <pre> tag in YOUR tab
+
 ## 0.1.4 (2012-02-14)
 * add htmlspecialchars() to output vars
 

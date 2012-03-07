@@ -385,11 +385,11 @@ class Kohana_ProfilerToolbar {
   /**
    * Add YOUR custom data
    * @static
-   * @param string $tabName
    * @param $data mixed
+   * @param string $tabName
    * @return void
    */
-  public static function addData($tabName = 'default',$data){
+  public static function addData($data,$tabName = 'default'){
     $tabName = URL::title($tabName);
     self::$_CUSTOM[$tabName][] = $data;
   }

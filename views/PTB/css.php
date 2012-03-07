@@ -62,4 +62,5 @@ $C_TABS_BORDER_USE = '#1a1a1a';
   #ptb_data ul.ptb_tabs li.use{border-bottom: 1px solid <?php echo $C_TABS_BORDER_USE;?>; color:white;}
   #ptb_data .ptb_tab_cont {border-top: 1px solid <?php echo $C_TABS_BORDER;?>; display: none; margin-bottom: 10px;}
   #ptb_data a.explain{border-bottom:1px solid <?php echo $C_4;?>; font-size: 8pt; color:<?php echo $C_4;?>; text-decoration: none;}
+  #ptb_data pre{background-color: transparent; color:<?=$C_1;?>; }
 </style>
