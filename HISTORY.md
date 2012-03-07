@@ -1,3 +1,7 @@
+## 0.1.6 (2012-03-07)
+* change output format of request params (routes tab)
+* Firebug: show use route in group tab
+
 ## 0.1.5 (2012-03-07)
 * change parameters order of ProfilerToolbar::addData() method
 * fixed css bug of <pre> tag in YOUR tab

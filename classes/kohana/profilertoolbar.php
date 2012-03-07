@@ -2,13 +2,12 @@
 
 /**
  * @author  Aleksey Ivanov <alertdevelop@gmail.com>
- * @version 0.1.1 beta
  * @see     http://alertdevelop.ru/projects/profilertoolbar
  * @see     https://github.com/Alert/profilertoolbar
 */
 class Kohana_ProfilerToolbar {
 
-  public  static $version = '0.1.4';
+  public  static $version = '0.1.6';
   public  static $kohana_version = '3.2';
   private static $_cfg = null;
   /* @var FirePHP */
@@ -98,7 +97,7 @@ class Kohana_ProfilerToolbar {
     if(self::cfg('firebug.showIncFiles'))   self::appendIncFiles();
     if(self::cfg('firebug.showCustom'))     self::appendCustom();
     // end
-    self::$_fb->info('============================================================');
+    self::$_fb->log('============================================================');
   }
 
   // =============== methods for collect data ======================================
@@ -300,18 +299,20 @@ class Kohana_ProfilerToolbar {
   }
 
   private static function appendRoutes(){
-    self::$_fb->group('Routes ('.self::$DATA_ROUTES['total']['count'].')',array('Collapsed'=>true));
     $tbl = array(0=>array('№','name','controller','action','params'));
-    $num = 0;
+    $num = $useNum = 0;
     foreach(ProfilerToolbar::$DATA_ROUTES['data'] as $name=>$route){
       if(Request::$current->route() == $route){
-        $params = '';
-        foreach(Request::$current->param() as $k=>$v) $params .= $k.': '.$v.'; ';
-        $tbl[] = array(++$num,'✔ '.$name,Request::$current->controller(),Request::$current->action(),$params);
+        $params = array();
+        foreach(Request::$current->param() as $k=>$v) $params[] = $k.': '.$v;
+        $tbl[] = array(++$num,'✔ '.$name,Request::$current->controller(),Request::$current->action(),implode('; ',$params));
+        $useNum = $num;
       }else{
         $tbl[] = array(++$num,$name,'','','');
       }
     }
+    $useRouteStr = "{$tbl[$useNum][1]} | controller: {$tbl[$useNum][2]} | action: {$tbl[$useNum][3]} | params: {$tbl[$useNum][4]}";
+    self::$_fb->group('Routes ('.self::$DATA_ROUTES['total']['count'].') '.$useRouteStr,array('Collapsed'=>true));
     self::$_fb->table('Routes',$tbl);
     self::$_fb->groupEnd();
   }

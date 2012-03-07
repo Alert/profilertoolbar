@@ -25,7 +25,7 @@
           <td class="tCenter">
             <?php if($current):?>
               <?php foreach(Request::$current->param() as $k=>$v):?>
-                <?php echo $k;?>: <?php echo $v;?><br />
+                (<?php echo $k;?>: <strong><?php echo $v;?></strong>)&nbsp;&nbsp;
               <?php endforeach;?>
             <?php endif;?>
           </td>
