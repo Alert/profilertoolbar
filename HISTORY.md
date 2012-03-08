@@ -1,3 +1,7 @@
+## 0.2.0 (2012-03-08)
+* add output ProfilerToolbar to error page
+* add custom error page with SQL syntax highlighter
+
 ## 0.1.6 (2012-03-07)
 * change output format of request params (routes tab)
 * Firebug: show use route in group tab

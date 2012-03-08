@@ -7,7 +7,7 @@
 */
 class Kohana_ProfilerToolbar {
 
-  public  static $version = '0.1.6';
+  public  static $version = '0.2.0';
   public  static $kohana_version = '3.2';
   private static $_cfg = null;
   /* @var FirePHP */
@@ -436,6 +436,37 @@ class Kohana_ProfilerToolbar {
       $data = HTML::chars($data);
       return '<pre>'.$data.'</pre>';
     }
+  }
+
+  public static function highlightSQL($sql = ''){
+    $words = array (
+      'chars' => '/([\\.,\\(\\)<>:=`]+)/i',
+      'constants' => '/(\'[^\']*\'|[0-9]+)/i',
+      'keywords' => array('SELECT', 'UPDATE', 'INSERT', 'DELETE', 'REPLACE', 'INTO', 'CREATE', 'ALTER', 'TABLE', 'DROP', 'TRUNCATE', 'FROM','ADD', 'CHANGE', 'COLUMN', 'KEY','WHERE', 'ON', 'CASE', 'WHEN', 'THEN', 'END', 'ELSE', 'AS','USING', 'USE', 'INDEX', 'CONSTRAINT', 'REFERENCES', 'DUPLICATE','LIMIT', 'OFFSET', 'SET', 'SHOW', 'STATUS','BETWEEN', 'AND', 'IS', 'NOT', 'OR', 'XOR', 'INTERVAL', 'TOP','GROUP BY', 'ORDER BY', 'DESC', 'ASC', 'COLLATE', 'NAMES', 'UTF8', 'DISTINCT', 'DATABASE','CALC_FOUND_ROWS', 'SQL_NO_CACHE', 'MATCH', 'AGAINST', 'LIKE', 'REGEXP', 'RLIKE','PRIMARY', 'AUTO_INCREMENT', 'DEFAULT', 'IDENTITY', 'VALUES', 'PROCEDURE', 'FUNCTION','TRAN', 'TRANSACTION', 'COMMIT', 'ROLLBACK', 'SAVEPOINT', 'TRIGGER', 'CASCADE','DECLARE', 'CURSOR', 'FOR', 'DEALLOCATE'),
+      'joins' => array('JOIN', 'INNER', 'OUTER', 'FULL', 'NATURAL', 'LEFT', 'RIGHT'),
+      'functions' => array('MIN', 'MAX', 'SUM', 'COUNT', 'AVG', 'CAST', 'COALESCE', 'CHAR_LENGTH', 'LENGTH', 'SUBSTRING','DAY', 'MONTH', 'YEAR', 'DATE_FORMAT', 'CRC32', 'CURDATE', 'SYSDATE', 'NOW', 'GETDATE','FROM_UNIXTIME', 'FROM_DAYS', 'TO_DAYS', 'HOUR', 'IFNULL', 'ISNULL', 'NVL', 'NVL2','INET_ATON', 'INET_NTOA', 'INSTR', 'FOUND_ROWS','LAST_INSERT_ID', 'LCASE', 'LOWER', 'UCASE', 'UPPER','LPAD','RPAD','RTRIM','LTRIM','MD5','MINUTE', 'ROUND','SECOND', 'SHA1', 'STDDEV', 'STR_TO_DATE', 'WEEK',),
+    );
+
+    // set \n when needed
+//    $sql = str_replace("\n",' ',$sql);
+//    $nlAfter = array('FROM','WHERE','GROUP BY','LIMIT','ORDER BY','LEFT JOIN','INNER JOIN');
+//    $sql = preg_replace('/\\b('.join("|", $nlAfter).')\\b/i', "\n$1", $sql);
+//    $sql = preg_replace('/\s/','&nbsp;',$sql);
+
+    $sql = str_replace('\\\'', '\\&#039;', $sql);
+    foreach($words as $key => $items){
+      if(in_array($key, array('constants', 'chars'))){
+        $regexp = $items;
+      }else{
+        $regexp = '/\\b('.join("|", $items).')\\b/i';
+      }
+      $sql = preg_replace($regexp, '<span class="'.$key.'">$1</span>', $sql);
+    }
+
+//    $sql = nl2br($sql);
+
+//    var_dump($sql);die();
+    return $sql;
   }
 
 }
