@@ -1,4 +1,4 @@
-ProfilerToolbar v0.2.0 for Kohana 3.2
+ProfilerToolbar v0.2.1 for Kohana 3.2
 ===============
 ProfilerToolbar it is another realization of the DebugToolbar written by Aaron Forsander, but has additional features.
 
@@ -9,11 +9,15 @@ How it looks
 
 **HTML output**
 
-![Swipe View](http://alertdevelop.ru/img/profilertoolbar/ptb1.png)
+![Swipe View](http://alertdevelop.ru/img/profilertoolbar/github/toolbar.png)
 
 **FireBug output**
 
-![Swipe View](http://alertdevelop.ru/img/profilertoolbar/firebug_short.png)
+![Swipe View](http://alertdevelop.ru/img/profilertoolbar/github/firebug.png)
+
+**Error page**
+
+![Swipe View](http://alertdevelop.ru/img/profilertoolbar/github/errorpage.png)
 
 
-For more information please visit http://alertdevelop.ru/projects/profilertoolbar
+For more information visit http://alertdevelop.ru/projects/profilertoolbar

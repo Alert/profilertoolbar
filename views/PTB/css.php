@@ -19,6 +19,7 @@ $C_TABS_BORDER_USE = '#1a1a1a';
   #ptb > *{padding:0; margin:0; font-family: <?php echo $MAIN_FONT;?>; font-size: <?php echo $MAIN_FONT_SIZE;?>;}
   #ptb .nowrap{white-space: nowrap;}
   #ptb table{font-family: <?php echo $MAIN_FONT;?>; font-size: <?php echo $MAIN_FONT_SIZE;?>; color:<?php echo $C_1;?>; font-weight: normal; border: 0; padding: 0; border-collapse:collapse; margin: 10px; width:98%;}
+  #ptb table thead tr{border: 1px solid transparent; border-bottom: none;}
   #ptb table thead th{text-align: center;}
   #ptb table tbody tr{}
   #ptb table tbody tr.total{border-top: 1px solid gray;border-bottom: 1px solid gray;}
@@ -63,4 +64,20 @@ $C_TABS_BORDER_USE = '#1a1a1a';
   #ptb_data .ptb_tab_cont {border-top: 1px solid <?php echo $C_TABS_BORDER;?>; display: none; margin-bottom: 10px;}
   #ptb_data a.explain{border-bottom:1px solid <?php echo $C_4;?>; font-size: 8pt; color:<?php echo $C_4;?>; text-decoration: none;}
   #ptb_data pre{background-color: transparent; color:<?=$C_1;?>; }
+  #ptb_data pre.source{overflow: auto; white-space: pre-wrap; font-size: 9pt; line-height: 12pt; margin: 4px 0; border-radius: 3px; padding: 4px 5px 4px 8px; background-color: transparent; color: white;}
+  #ptb_data pre.source span.line { display: block; }
+  #ptb_data pre.source span.highlight { background: #414040; }
+  #ptb_data pre.source span.line span.num { color: #666; }
+  <!-- highlight -->
+  #ptb_data pre.sql .imp {font-weight: bold; color: red;}
+  #ptb_data pre.sql .kw1 {color: #388fff;}
+  #ptb_data pre.sql .co1 {color: #808080;}
+  #ptb_data pre.sql .co2 {color: #808080;}
+  #ptb_data pre.sql .coMULTI {color: #808080;}
+  #ptb_data pre.sql .es0 {color: #000099; font-weight: bold;}
+  #ptb_data pre.sql .br0 {}
+  #ptb_data pre.sql .st0 {color: #ff9933;}
+  #ptb_data pre.sql .nu0 {color: #66ff00;}
+  <!-- /highlight -->
+  
 </style>

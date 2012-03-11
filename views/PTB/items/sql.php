@@ -1,4 +1,5 @@
 <?php $SHOW_EXPLAIN = ProfilerToolbar::cfg('html.showSqlExplain');?>
+<?php $highlightSQL = ProfilerToolbar::cfg('html.highlightSQL'); ;?>
 
 <div id="ptb_data_cont_sql" class="ptb_data_cont" style="display: none;">
   <?php if(empty(ProfilerToolbar::$DATA_SQL)):?>
@@ -34,7 +35,6 @@
             <?php if($SHOW_EXPLAIN && !empty($v['explain'])):?>
               <a href="#" class="explain" title="show EXPLAIN query">EXPLAIN</a>
             <?php endif;?>
-            <?php echo $v['sql'];?>
             <?php if($SHOW_EXPLAIN && !empty($v['explain'])):?>
             <table style="display: none;">
               <thead>
@@ -66,6 +66,11 @@
               </tr>
               <?php endforeach;?>
             </table>
+            <?php endif;?>
+            <?php if($highlightSQL):?>
+              <pre class="source sql"><?php echo ProfilerToolbar::highlight($v['sql'],'sql');?></pre>
+            <?php else:?>
+              <?php echo $v['sql'];?>
             <?php endif;?>
           </td>
           <td class="tCenter"><?php echo $v['rows'];?></td>

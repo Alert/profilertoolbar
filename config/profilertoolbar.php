@@ -12,6 +12,8 @@ return array(
     'showRoutes'      => true, // show routes
     'showIncFiles'    => true, // show all included files
     'showCustom'      => true, // show YOUR custom data
+
+    'highlightSQL'    => true, // highlight SQL code
   ),
   // firebug data settings
   'firebug'=>array(
@@ -30,6 +32,11 @@ return array(
     'maxObjectDepth'  => 5,  // Maximum depth to traverse objects
     'maxArrayDepth'   => 5,  // Maximum depth to traverse arrays
     'maxDepth'        => 10, // Maximum depth to traverse mixed arrays/objects
+  ),
+  // error page settings
+  'errorPage'=>array(
+    'highlightSQL'    => true, // highlight SQL code
+    'highlightPHP'    => true, // highlight PHP code
   ),
 
   // output vars format

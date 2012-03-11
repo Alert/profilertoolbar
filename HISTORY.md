@@ -1,3 +1,9 @@
+## 0.2.1 (2012-03-11)
+* change JavaScript highlighter to server side solution
+* add PHP highlighter on error page
+* add SQL highlighter in html toolbar
+* add on/off highlight settings to config
+
 ## 0.2.0 (2012-03-08)
 * add output ProfilerToolbar to error page
 * add custom error page with SQL syntax highlighter
