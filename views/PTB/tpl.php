@@ -3,7 +3,12 @@
 <?php echo View::factory('PTB/js')->render();?>
 <div id="ptb">
   <ul id="ptb_toolbar" class="ptb_bg">
-    <li class="info" title="ProfilerToolbar v<?php echo ProfilerToolbar::$version;?> for Kohana v<?php echo ProfilerToolbar::$kohana_version;?>"><?php echo ProfilerToolbar::$version;?> / 3.2 <span class="icon"></span></li>
+    <li class="info">
+      <a href="http://alertdevelop.ru/projects/profilertoolbar" title="Go to module web site"><?php echo ProfilerToolbar::$version;?></a>
+      /
+      <a href="http://kohanaframework.org/" title="Go to kohana web site">3.2</a>
+      <span class="icon" title="ProfilerToolbar v<?php echo ProfilerToolbar::$version;?> for Kohana v<?php echo ProfilerToolbar::$kohana_version;?>"></span>
+    </li>
     <?php if(ProfilerToolbar::cfg('html.showTotalInfo')):?>
       <li class="time" title="application execution time">  <span class="icon"></span> <?php echo ProfilerToolbar::formatTime(ProfilerToolbar::$DATA_APP_TIME);?></li>
       <li class="ram" title="memory peak usage">            <span class="icon"></span> <?php echo ProfilerToolbar::formatMemory(ProfilerToolbar::$DATA_APP_MEMORY);?></li>

@@ -1,3 +1,6 @@
+## 0.2.1 (2012-03-12)
+* fixed css bug of border artifacts and jitter in opera
+
 ## 0.2.1 (2012-03-11)
 * change JavaScript highlighter to server side solution
 * add PHP highlighter on error page
