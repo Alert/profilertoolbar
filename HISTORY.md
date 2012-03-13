@@ -1,4 +1,7 @@
-## 0.2.1 (2012-03-12)
+## 0.2.3 (2012-03-13)
+* added support work with "xdebug"
+
+## 0.2.2 (2012-03-12)
 * fixed css bug of border artifacts and jitter in opera
 
 ## 0.2.1 (2012-03-11)

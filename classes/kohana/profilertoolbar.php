@@ -7,7 +7,7 @@
 */
 class Kohana_ProfilerToolbar {
 
-  public  static $version = '0.2.2';
+  public  static $version = '0.2.3';
   public  static $kohana_version = '3.2';
   private static $_cfg = null;
   /* @var FirePHP */
@@ -17,6 +17,9 @@ class Kohana_ProfilerToolbar {
   private static $_CUSTOM = array();
 
   private static $_data_collected = false;
+
+  // loaded xdebug extension or not
+  private static $_xdebug = null;
 
   // data for output
   public static $DATA_APP_TIME   = null;
@@ -425,7 +428,31 @@ class Kohana_ProfilerToolbar {
     return $res;
   }
 
+  /**
+   * is xdebug loaded or not
+   * @static
+   * @return bool
+   */
+  private static function isXdebug(){
+    if(self::$_xdebug === null){
+      self::$_xdebug = extension_loaded('xdebug');
+    }
+    return self::$_xdebug;
+  }
+
+  /**
+   * Override system var_dump
+   * @static
+   * @param $var
+   * @return string
+   */
   public static function varDump($var){
+    if(self::isXdebug()){
+      ob_start();
+      var_dump($var);
+      return ob_get_clean();
+    }
+
     if(is_bool($var)) return ($var)?'true':'false';
     elseif(is_scalar($var)) return HTML::chars($var);
     else{
