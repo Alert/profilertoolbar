@@ -1,4 +1,4 @@
-<?php if(Request::initial()->is_ajax()):?>
+<?php if(isset(Request::$initial) && Request::$initial->is_ajax()):?>
 <?php echo "{$type} [ {$code} ]\n{$message}";?>
 <?php else:?>
 

@@ -7,7 +7,7 @@
 */
 class Kohana_ProfilerToolbar {
 
-  public  static $version = '0.2.3';
+  public  static $version = '0.2.4';
   public  static $kohana_version = '3.2';
   private static $_cfg = null;
   /* @var FirePHP */
@@ -16,7 +16,11 @@ class Kohana_ProfilerToolbar {
   private static $_SQL = array();
   private static $_CUSTOM = array();
 
-  private static $_data_collected = false;
+  /**
+   * using in HMVC for collect data from last request
+   * @var string (request name)
+   */
+  private static $_data_collect_current_route = '';
 
   // loaded xdebug extension or not
   private static $_xdebug = null;
@@ -42,7 +46,7 @@ class Kohana_ProfilerToolbar {
    * @return void
    */
   private static function collectData(){
-    if(self::$_data_collected) return;
+    if(Route::name(Request::current()->route()) == self::$_data_collect_current_route) return;
     self::$DATA_APP_TIME    = self::getAppTime();
     self::$DATA_APP_MEMORY  = self::getAppMemory();
     self::$DATA_SQL         = self::getSql();
@@ -56,7 +60,7 @@ class Kohana_ProfilerToolbar {
     self::$DATA_ROUTES      = self::getRoutes();
     self::$DATA_INC_FILES   = self::getIncFiles();
     self::$DATA_CUSTOM      = self::getCustom();
-    self::$_data_collected  = true;
+    self::$_data_collect_current_route = Route::name(Request::current()->route());
   }
 
   /**
@@ -127,13 +131,13 @@ class Kohana_ProfilerToolbar {
         foreach ($tokens as $token) {
           $stats = Profiler::stats(array($token));
           $sql[$sqlGroup]['data'][] = array(
-            'sql'=>$benchName,
-            'time'=>$stats['total']['time'],
-            'memory'=>$stats['total']['memory'],
-            'rows'=>(isset(self::$_SQL[$sqlGroup][$benchName]))?self::$_SQL[$sqlGroup][$benchName]['rows']:null,
-            'explain'=>(isset(self::$_SQL[$sqlGroup][$benchName]))?self::$_SQL[$sqlGroup][$benchName]['explain']:null,
+            'sql'     =>  $benchName,
+            'time'    =>  $stats['total']['time'],
+            'memory'  =>  $stats['total']['memory'],
+            'rows'    =>  (isset(self::$_SQL[$sqlGroup][$benchName]))?self::$_SQL[$sqlGroup][$benchName]['rows']:null,
+            'explain' =>  (isset(self::$_SQL[$sqlGroup][$benchName]))?self::$_SQL[$sqlGroup][$benchName]['explain']:null,
           );
-          $sql[$sqlGroup]['total']['time'] += $stats['total']['time'];
+          $sql[$sqlGroup]['total']['time']   += $stats['total']['time'];
           $sql[$sqlGroup]['total']['memory'] += $stats['total']['memory'];
           $sql[$sqlGroup]['total']['count']++;
         }

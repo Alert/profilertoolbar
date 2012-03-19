@@ -206,35 +206,35 @@ class Kohana_Database_MySQL extends Database {
 
 		if ($type === Database::SELECT)
 		{
-      // Return an iterator of results
-      $res = new Database_MySQL_Result($result, $sql, $as_object, $params);
+          // Return an iterator of results
+          $res = new Database_MySQL_Result($result, $sql, $as_object, $params);
 
-      $_sql = trim($sql);
-      if(stripos($_sql,'select') === 0){
-        if(($expl = mysql_query('EXPLAIN '.$_sql,$this->_connection)) !== false){
-          $expl = new Database_MySQL_Result($expl,$sql, false);
-        }
-        ProfilerToolbar::setSqlData($this->_instance,$sql,$res->count(),$expl->as_array());
-      }
+          $_sql = trim($sql);
+          if(stripos($_sql,'select') === 0){
+            if(($expl = mysql_query('EXPLAIN '.$_sql,$this->_connection)) !== false){
+              $expl = new Database_MySQL_Result($expl,$sql, false);
+            }
+            ProfilerToolbar::setSqlData($this->_instance,$sql,$res->count(),$expl->as_array());
+          }
 
 			return $res;
 		}
 		elseif ($type === Database::INSERT)
 		{
-			// Return a list of insert id and rows created
-      $res = array(
-        mysql_insert_id($this->_connection),
-        mysql_affected_rows($this->_connection),
-      );
-      ProfilerToolbar::setSqlData($this->_instance,$sql,$res[1]);
-			return $res;
+          // Return a list of insert id and rows created
+          $res = array(
+            mysql_insert_id($this->_connection),
+            mysql_affected_rows($this->_connection),
+          );
+          ProfilerToolbar::setSqlData($this->_instance,$sql,$res[1]);
+          return $res;
 		}
 		else
 		{
-			// Return the number of rows affected
-      $res = mysql_affected_rows($this->_connection);
-      ProfilerToolbar::setSqlData($this->_instance,$sql,$res);
-			return $res;
+          // Return the number of rows affected
+          $res = mysql_affected_rows($this->_connection);
+          ProfilerToolbar::setSqlData($this->_instance,$sql,$res);
+          return $res;
 		}
 	}
 
@@ -305,7 +305,15 @@ class Kohana_Database_MySQL extends Database {
 				mysql_errno($this->_connection));
 		}
 
-		return (bool) mysql_query('START TRANSACTION', $this->_connection);
+        $sql = 'START TRANSACTION';
+        if ( ! empty($this->_config['profiling']))
+          $benchmark = Profiler::start("Database ({$this->_instance})", $sql);
+
+        $res = (bool) mysql_query($sql, $this->_connection);
+
+        if (isset($benchmark)) Profiler::stop($benchmark);
+
+		return $res;
 	}
 
 	/**
@@ -319,7 +327,15 @@ class Kohana_Database_MySQL extends Database {
 		// Make sure the database is connected
 		$this->_connection or $this->connect();
 
-		return (bool) mysql_query('COMMIT', $this->_connection);
+        $sql = 'COMMIT';
+        if ( ! empty($this->_config['profiling']))
+          $benchmark = Profiler::start("Database ({$this->_instance})", $sql);
+
+        $res = (bool) mysql_query($sql, $this->_connection);
+
+        if (isset($benchmark)) Profiler::stop($benchmark);
+
+        return $res;
 	}
 
 	/**
@@ -333,7 +349,15 @@ class Kohana_Database_MySQL extends Database {
 		// Make sure the database is connected
 		$this->_connection or $this->connect();
 
-		return (bool) mysql_query('ROLLBACK', $this->_connection);
+        $sql = 'ROLLBACK';
+        if ( ! empty($this->_config['profiling']))
+          $benchmark = Profiler::start("Database ({$this->_instance})", $sql);
+
+        $res = (bool) mysql_query($sql, $this->_connection);
+
+        if (isset($benchmark)) Profiler::stop($benchmark);
+
+        return $res;
 	}
 
 	public function list_tables($like = NULL)

@@ -143,8 +143,8 @@ class Kohana_Database_PDO extends Database {
 
 		try
 		{
-			$result = $this->_connection->query($sql);
-      ProfilerToolbar::setSqlData($this->_instance,$sql,$result->rowCount());
+          $result = $this->_connection->query($sql);
+          ProfilerToolbar::setSqlData($this->_instance,$sql,$result->rowCount());
 		}
 		catch (Exception $e)
 		{

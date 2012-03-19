@@ -1,3 +1,8 @@
+## 0.2.4 (2012-03-19)
+* added support transactions (begin,commit,rollback) for mysql driver
+  this is not an ideal solution because system profiler group the same queries
+* fixed bug with displaying data in HMVC
+
 ## 0.2.3 (2012-03-13)
 * added support work with "xdebug"
 
