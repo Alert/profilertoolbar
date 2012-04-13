@@ -1,3 +1,6 @@
+## 0.2.5 (2012-04-13)
+* fixed css bug
+
 ## 0.2.4 (2012-03-19)
 * added support transactions (begin,commit,rollback) for mysql driver
   this is not an ideal solution because system profiler group the same queries

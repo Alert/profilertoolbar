@@ -14,9 +14,9 @@ $C_TABS_BORDER = 'gray';
 $C_TABS_BORDER_USE = '#1a1a1a';
 ?>
 <style type="text/css">
-  .ptb_bg{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAAAAACMmsGiAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAABdJREFUCB1jUlGRkWH6CQRMf//y8oJZAFUaCmUwcfODAAAAAElFTkSuQmCC);}
+  .ptb_bg{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAAAAACMmsGiAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAABdJREFUCB1jUlGRkWH6CQRMf//y8oJZAFUaCmUwcfODAAAAAElFTkSuQmCC) !important;}
   #ptb{}
-  #ptb > *{padding:0; margin:0; font-family: <?php echo $MAIN_FONT;?>; font-size: <?php echo $MAIN_FONT_SIZE;?>;}
+  #ptb *{padding:0; margin:0; font: <?php echo $MAIN_FONT_SIZE;?> <?php echo $MAIN_FONT;?>; background: none; text-decoration: none; border:none;}
   #ptb .nowrap{white-space: nowrap;}
   #ptb table{font-family: <?php echo $MAIN_FONT;?>; font-size: <?php echo $MAIN_FONT_SIZE;?>; color:<?php echo $C_1;?>; font-weight: normal; border: 0; padding: 0; border-collapse:collapse; margin: 10px; width:98%;}
   #ptb table thead tr{border: 1px solid transparent; border-bottom: none;}
