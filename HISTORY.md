@@ -1,3 +1,6 @@
+## 0.2.6 (2012-04-14)
+* fixed bug with displaying arrays of variables GET/POST
+
 ## 0.2.5 (2012-04-13)
 * fixed css bug
 
