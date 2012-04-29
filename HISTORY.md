@@ -1,3 +1,6 @@
+## 0.2.7 (2012-04-29)
+* fixed bug with check existence of class FirePHP
+
 ## 0.2.6 (2012-04-14)
 * fixed bug with displaying arrays of variables GET/POST
 
@@ -31,7 +34,7 @@
 
 ## 0.1.5 (2012-03-07)
 * change parameters order of ProfilerToolbar::addData() method
-* fixed css bug of <pre> tag in YOUR tab
+* fixed css bug of \<pre> tag in YOUR tab
 
 ## 0.1.4 (2012-02-14)
 * add htmlspecialchars() to output vars

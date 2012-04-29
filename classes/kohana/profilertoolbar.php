@@ -7,7 +7,7 @@
 */
 class Kohana_ProfilerToolbar {
 
-  public  static $version = '0.2.6';
+  public  static $version = '0.2.7';
   public  static $kohana_version = '3.2';
   private static $_cfg = null;
   /* @var FirePHP */

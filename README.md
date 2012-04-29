@@ -1,4 +1,4 @@
-ProfilerToolbar v0.2.6 for Kohana 3.2
+ProfilerToolbar v0.2.7 for Kohana 3.2
 ===============
 ProfilerToolbar it is another realization of the DebugToolbar written by Aaron Forsander, but has additional features.
 
