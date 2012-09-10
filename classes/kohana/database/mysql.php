@@ -170,7 +170,7 @@ class Kohana_Database_MySQL extends Database {
 		// Make sure the database is connected
 		$this->_connection or $this->connect();
 
-		if ( ! empty($this->_config['profiling']))
+		if ( ! empty($this->_config['profiling']) && stripos($sql,'explain') !== 0)
 		{
 			// Benchmark this query for the current instance
 			$benchmark = Profiler::start("Database ({$this->_instance})", $sql);
@@ -208,16 +208,10 @@ class Kohana_Database_MySQL extends Database {
 		{
           // Return an iterator of results
           $res = new Database_MySQL_Result($result, $sql, $as_object, $params);
-
-          $_sql = trim($sql);
-          if(stripos($_sql,'select') === 0){
-            if(($expl = mysql_query('EXPLAIN '.$_sql,$this->_connection)) !== false){
-              $expl = new Database_MySQL_Result($expl,$sql, false);
-            }
-            ProfilerToolbar::setSqlData($this->_instance,$sql,$res->count(),$expl->as_array());
+          if(stripos($sql,'explain') !== 0){
+            ProfilerToolbar::setSqlData($this->_instance,$sql,$res->count());
           }
-
-			return $res;
+	      return $res;
 		}
 		elseif ($type === Database::INSERT)
 		{

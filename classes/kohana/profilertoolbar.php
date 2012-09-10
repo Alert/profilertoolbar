@@ -7,7 +7,7 @@
 */
 class Kohana_ProfilerToolbar {
 
-  public  static $version = '0.2.7';
+  public  static $version = '0.2.8';
   public  static $kohana_version = '3.2';
   private static $_cfg = null;
   /* @var FirePHP */
@@ -121,6 +121,19 @@ class Kohana_ProfilerToolbar {
   }
 
   private static function getSql(){
+    // calc explain
+    if(self::cfg('html.showSqlExplain') && self::cfg('html.showSqlExplain')){
+      foreach(self::$_SQL as $instance => $query){
+        foreach($query as $sql => $data){
+          if(stripos($sql,'select') === 0){
+            $expl = Database::instance($instance)->query(Database::SELECT,'EXPLAIN '.$sql)->as_array();
+            self::$_SQL[$instance][$sql]['explain'] = $expl;
+          }
+        }
+      }
+    }
+
+    // collect data
     $sql = array();
     $groups = Profiler::groups();
     foreach ($groups as $groupName => $benchmarks) {
@@ -359,12 +372,13 @@ class Kohana_ProfilerToolbar {
    * @param $instance
    * @param $sql
    * @param null $rows
-   * @param null $explain
    * @return void
    */
-  public static function setSqlData($instance,$sql,$rows = null,$explain = null){
-    self::$_SQL[$instance][$sql]['rows'] = $rows;
-    self::$_SQL[$instance][$sql]['explain'] = $explain;
+  public static function setSqlData($instance,$sql,$rows = null){
+    self::$_SQL[$instance][$sql] = array(
+      'rows'    => $rows,
+      'explain' => null,
+    );
   }
 
   /**

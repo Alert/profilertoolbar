@@ -1,3 +1,6 @@
+## 0.2.8 (2012-09-10)
+* fixed bug FOUND_ROWS() (issue: #18)
+
 ## 0.2.7 (2012-04-29)
 * fixed bug with check existence of class FirePHP
 
