@@ -205,7 +205,7 @@ class Kohana_ProfilerToolbar {
   }
 
   private static function getSession(){
-    return (isset($_SESSION))?$_SESSION:array();
+    return Session::instance()->as_array();;
   }
 
   private static function getServer(){
