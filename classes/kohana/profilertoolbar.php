@@ -386,22 +386,22 @@ class Kohana_ProfilerToolbar {
    * Used in Cache classes
    * @static
    * @param $action
-   * @param $instalce
+   * @param $instance
    * @param $id
    * @param null $lifetime
    * @return void
    */
-  public static function cacheLog($action,$instalce,$id,$lifetime = null){
+  public static function cacheLog($action,$instance,$id,$lifetime = null){
     if(!in_array($action,array('get','set','del'))) return;
-    self::$_CACHE['data'][$instalce]['data'][] = array(
+    self::$_CACHE['data'][$instance]['data'][] = array(
       'action'=>$action,
       'id'=>$id,
       'lifetime'=>$lifetime
     );
     if(!isset(self::$_CACHE['total'])) self::$_CACHE['total'] = array('get'=>0,'set'=>0,'del'=>0);
-    if(!isset(self::$_CACHE['data'][$instalce]['total'])) self::$_CACHE['data'][$instalce]['total'] = array('get'=>0,'set'=>0,'del'=>0);
+    if(!isset(self::$_CACHE['data'][$instance]['total'])) self::$_CACHE['data'][$instance]['total'] = array('get'=>0,'set'=>0,'del'=>0);
     self::$_CACHE['total'][$action]++;
-    self::$_CACHE['data'][$instalce]['total'][$action]++;
+    self::$_CACHE['data'][$instance]['total'][$action]++;
   }
 
   /**
