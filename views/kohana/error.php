@@ -1,5 +1,5 @@
 <?php if(isset(Request::$initial) && Request::$initial->is_ajax()):?>
-<?php echo "{$type} [ {$code} ]\n{$message}";?>
+<?php echo "{$class} [ {$code} ]\n{$message}";?>
 <?php else:?>
 
 <?php $highlightSQL = ProfilerToolbar::cfg('errorPage.highlightSQL'); ;?>
@@ -69,9 +69,9 @@
 
   <div id="ptb_err">
     <div class="head">
-      <div class="type"><?php echo $type;?> <span class="typeCode">[ <?php echo $code;?> ]</span></div>
+      <div class="type"><?php echo $class;?> <span class="typeCode">[ <?php echo $code;?> ]</span></div>
       <div class="message">
-      <?php if($type == 'Database_Exception'):?>
+      <?php if($class == 'Database_Exception'):?>
       <?php
         $start = UTF8::strpos($message,'[ ');
         $end   = UTF8::strpos($message,' ]');
