@@ -73,14 +73,14 @@
       <div class="message">
       <?php if($class == 'Database_Exception'):?>
       <?php
-        $start = UTF8::strpos($message,'[ ');
-        $end   = UTF8::strpos($message,' ]');
-        $sql   = UTF8::substr($message,$start+2,$end-$start-2);
-        $message =  UTF8::substr($message,0,$start);
+        $start   = UTF8::strpos($message, '[ ');
+        $end     = UTF8::strpos($message, ' ]');
+        $sql     = UTF8::substr($message, $start + 2, $end - $start - 2);
+        $message = UTF8::substr($message, 0, $start);
       ?>
         <?php echo $message;?>
         <?php if($highlightSQL):?>
-          <pre class="source sql"><?php echo ProfilerToolbar::highlight($sql,'sql')?></pre>
+          <pre class="source sql"><?php echo ProfilerToolbar::highlight($sql, 'sql') ?></pre>
         <?php else:?>
           <pre class="source"><?php echo $sql;?></pre>
         <?php endif;?>
@@ -92,18 +92,18 @@
     </div>
 
     <div class="content" id="<?php echo $error_id ?>">
-      <p class="filePath"><?php echo Debug::path($file);?> <span class="lineNum">[ <?php echo $line;?> ]</span></p>
-      <?php if($highlightPHP):?>
-        <pre class="source php"><?php echo ProfilerToolbar::debugSource($file, $line,5,true,'php');?></pre>
-      <?php else:?>
-        <pre class="source"><?php echo ProfilerToolbar::debugSource($file, $line);?></pre>
-      <?php endif;?>
+      <p class="filePath"><?php echo Debug::path($file); ?> <span class="lineNum">[ <?php echo $line; ?> ]</span></p>
+      <?php if ($highlightPHP): ?>
+        <pre class="source php"><?php echo ProfilerToolbar::debugSource($file, $line, 5, true, 'php'); ?></pre>
+      <?php else: ?>
+        <pre class="source"><?php echo ProfilerToolbar::debugSource($file, $line); ?></pre>
+      <?php endif; ?>
 
       <ol class="trace">
-        <?php foreach(ProfilerToolbar::debugTrace($trace,$highlightPHP,'php') as $i => $step): ?>
+        <?php foreach (ProfilerToolbar::debugTrace($trace, $highlightPHP, 'php') as $i => $step): ?>
         <li>
           <p class="filePath">
-            <?php if($step['file']): $source_id = $error_id.'source'.$i; ?>
+            <?php if ($step['file']): $source_id = $error_id . 'source' . $i; ?>
             <a href="#<?php echo $source_id ?>" onclick="return koggle('<?php echo $source_id ?>')"><?php echo Debug::path($step['file']) ?> <span class="lineNum">[ <?php echo $step['line'] ?> ]</span></a>
             <?php else: ?>
             {<?php echo __('PHP internal call') ?>}
@@ -117,31 +117,31 @@
             )
           </p>
 
-          <?php if(isset($args_id)): ?>
-          <table id="<?php echo $args_id ?>" class="arguments">
-            <?php foreach($step['args'] as $name => $arg): ?>
-            <tr>
-              <td class="name"><?php echo $name;?></td>
-              <td><?php echo ProfilerToolbar::varDump($arg); ?></td>
-            </tr>
-            <?php endforeach; ?>
-          </table>
-          <?php endif;?>
+          <?php if (isset($args_id)): ?>
+            <table id="<?php echo $args_id ?>" class="arguments">
+              <?php foreach ($step['args'] as $name => $arg): ?>
+                <tr>
+                  <td class="name"><?php echo $name; ?></td>
+                  <td><?php echo ProfilerToolbar::varDump($arg); ?></td>
+                </tr>
+              <?php endforeach; ?>
+            </table>
+          <?php endif; ?>
 
-          <?php if(isset($source_id)): ?>
-            <?php if($highlightPHP):?>
-            <pre class="source php" id="<?php echo $source_id ?>"><?php echo $step['source'];?></pre>
-            <?php else:?>
-            <pre class="source" id="<?php echo $source_id ?>"><?php echo $step['source'];?></pre>
-            <?php endif;?>
+          <?php if (isset($source_id)): ?>
+            <?php if ($highlightPHP): ?>
+              <pre class="source php" id="<?php echo $source_id ?>"><?php echo $step['source']; ?></pre>
+            <?php else: ?>
+              <pre class="source" id="<?php echo $source_id ?>"><?php echo $step['source']; ?></pre>
+            <?php endif; ?>
           <?php endif ?>
 
         </li>
-        <?php unset($args_id, $source_id); ?>
+          <?php unset($args_id, $source_id); ?>
         <?php endforeach; ?>
       </ol>
     </div>
   </div>
 
-<?php ProfilerToolbar::render(true);?>
-<?php endif;?>
+  <?php ProfilerToolbar::render(true); ?>
+<?php endif; ?>

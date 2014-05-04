@@ -2,8 +2,11 @@
 
 abstract class Controller extends Kohana_Controller {
 
-  public function after(){
-    if($this->request->is_initial() && ProfilerToolbar::cfg('firebug.enabled') && ProfilerToolbar::cfg('firebug.showEverywhere')) {
+  public function after() {
+    $firebugEnabled        = ProfilerToolbar::cfg('firebug.enabled');
+    $firebugShowEverywhere = ProfilerToolbar::cfg('firebug.showEverywhere');
+
+    if ($this->request->is_initial() && $firebugEnabled && $firebugShowEverywhere) {
       ProfilerToolbar::firebug();
     }
   }
