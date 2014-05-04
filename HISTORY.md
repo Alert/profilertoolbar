@@ -1,3 +1,6 @@
+## 3.3-0.2.9 (2014-05-04)
+* adaptation module for kohana v3.3
+
 ## 3.2-0.2.9 (2014-05-04)
 * add memcached support, thanks to [seyfer](https://github.com/seyfer) (#26, #27)
 * update GeGHi for work with php5.5
