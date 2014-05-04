@@ -85,7 +85,7 @@
           <pre class="source"><?php echo $sql;?></pre>
         <?php endif;?>
       <?php else:?>
-      <?php echo html::chars($message); ?>
+        <?php echo htmlspecialchars((string)$message, ENT_QUOTES, 'UTF-8', true); ?>
       <?php endif;?>
 
       </div>

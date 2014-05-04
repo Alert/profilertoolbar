@@ -141,6 +141,9 @@ class Kohana_ProfilerToolbar {
       $sqlGroup = substr($groupName,strpos($groupName,'(')+1,strpos($groupName,')')-strpos($groupName,'(')-1);
       $sql[$sqlGroup] = array('data'=>array(),'total'=>array('time'=>0,'memory'=>0,'count'=>0));
       foreach ($benchmarks as $benchName => $tokens) {
+        // skip explain queries
+        if(stripos(trim($benchName),'explain') === 0) continue;
+
         foreach ($tokens as $token) {
           $stats = Profiler::stats(array($token));
           $sql[$sqlGroup]['data'][] = array(
