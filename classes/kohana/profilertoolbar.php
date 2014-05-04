@@ -28,17 +28,17 @@ class Kohana_ProfilerToolbar {
   // data for output
   public static $DATA_APP_TIME   = null;
   public static $DATA_APP_MEMORY = null;
-  public static $DATA_SQL        = null;
-  public static $DATA_CACHE      = null;
-  public static $DATA_POST       = null;
-  public static $DATA_GET        = null;
-  public static $DATA_FILES      = null;
-  public static $DATA_COOKIE     = null;
-  public static $DATA_SESSION    = null;
-  public static $DATA_SERVER     = null;
-  public static $DATA_ROUTES     = null;
-  public static $DATA_INC_FILES  = null;
-  public static $DATA_CUSTOM     = null;
+  public static $DATA_SQL        = array();
+  public static $DATA_CACHE      = array('total'=>array('get'=>0,'set'=>0,'del'=>0), 'data'=>array());
+  public static $DATA_POST       = array();
+  public static $DATA_GET        = array();
+  public static $DATA_FILES      = array();
+  public static $DATA_COOKIE     = array();
+  public static $DATA_SESSION    = array();
+  public static $DATA_SERVER     = array();
+  public static $DATA_ROUTES     = array('data'=>array(),'total'=>array('count'=>0));
+  public static $DATA_INC_FILES  = array('data'=>array(),'total'=>array('size'=>0,'lines'=>0,'count'=>0));
+  public static $DATA_CUSTOM     = array();
 
   /**
    * Collect all data
@@ -46,7 +46,7 @@ class Kohana_ProfilerToolbar {
    * @return void
    */
   private static function collectData(){
-    if(Route::name(Request::current()->route()) == self::$_data_collect_current_route) return;
+    if(!Request::$current || Route::name(Request::$current->route()) == self::$_data_collect_current_route) return;
     self::$DATA_APP_TIME    = self::getAppTime();
     self::$DATA_APP_MEMORY  = self::getAppMemory();
     self::$DATA_SQL         = self::getSql();
@@ -60,7 +60,7 @@ class Kohana_ProfilerToolbar {
     self::$DATA_ROUTES      = self::getRoutes();
     self::$DATA_INC_FILES   = self::getIncFiles();
     self::$DATA_CUSTOM      = self::getCustom();
-    self::$_data_collect_current_route = Route::name(Request::current()->route());
+    self::$_data_collect_current_route = Route::name(Request::$current->route());
   }
 
   /**
