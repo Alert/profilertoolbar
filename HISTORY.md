@@ -1,3 +1,9 @@
+## 3.2-0.2.9 (2014-05-04)
+* add memcached support, thanks to [seyfer](https://github.com/seyfer) (#26, #27)
+* update GeGHi for work with php5.5
+* fixed #21
+* divide master branch to 3.2 and 3.3
+
 ## 0.2.8 (2012-09-10)
 * fixed bug FOUND_ROWS() (issue: #18)
 
