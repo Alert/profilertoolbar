@@ -1,0 +1,12 @@
+{
+    "name": "Alert/ProfilerToolbar for Kohana framework",
+    "description": "ProfilerToolbar it is another realization of the DebugToolbar written by Aaron Forsander, but has additional features",
+    "require": {
+        "php": ">=5.3.0",
+        "kohana/core": "3.3.*@dev"
+    },
+    "homepage": "http://alertdevelop.ru/projects/profilertoolbar",
+    "support": {
+        "issues": "https://github.com/Alert/profilertoolbar/issues"
+    }
+}
