@@ -1,5 +1,5 @@
 {
-    "name": "Alert/ProfilerToolbar for Kohana framework",
+    "name": "alert/kohana_profiler_toolbar",
     "description": "ProfilerToolbar it is another realization of the DebugToolbar written by Aaron Forsander, but has additional features",
     "require": {
         "php": ">=5.3.0",
