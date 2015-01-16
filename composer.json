@@ -4,6 +4,7 @@
     "description": "ProfilerToolbar display useful stats and information in a toolbar at the top of the page.",
     "homepage": "http://alertdevelop.ru/projects/profilertoolbar",
     "type": "kohana-module",
+    "license": "WTFPL-2.0",
     "authors": [
         {
             "name": "Alert",
