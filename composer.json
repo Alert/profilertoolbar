@@ -1,11 +1,33 @@
 {
     "name": "alert/kohana_profiler_toolbar",
-    "description": "ProfilerToolbar it is another realization of the DebugToolbar written by Aaron Forsander, but has additional features",
+    "version": "0.2.10",
+    "description": "ProfilerToolbar display useful stats and information in a toolbar at the top of the page.",
+    "homepage": "http://alertdevelop.ru/projects/profilertoolbar",
+    "type": "kohana-module",
+    "authors": [
+        {
+            "name": "Alert",
+            "email": "alertdevelop@gmail.com",
+            "homepage": "http://alertdevelop.ru",
+            "role": "Developer"
+        }
+    ],
     "require": {
         "php": ">=5.3.0",
         "kohana/core": "3.3.*@dev"
     },
-    "homepage": "http://alertdevelop.ru/projects/profilertoolbar",
+    "autoload": {
+        "classmap": [
+            "classes/"
+        ]
+    },
+    "extra": {
+        "installer-paths": {
+            "vendor/kohana/modules/{$name}/": [
+                "type:kohana-module"
+            ]
+        }
+    },
     "support": {
         "issues": "https://github.com/Alert/profilertoolbar/issues"
     }
