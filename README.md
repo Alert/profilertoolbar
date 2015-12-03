@@ -9,15 +9,15 @@ How it looks
 
 **HTML output**
 
-![Swipe View](http://alertdevelop.ru/img/profilertoolbar/github/toolbar.png)
+![HTML](https://cloud.githubusercontent.com/assets/217868/11569597/d89af60c-9a03-11e5-8298-36274e152679.png)
 
 **FireBug output**
 
-![Swipe View](http://alertdevelop.ru/img/profilertoolbar/github/firebug.png)
+![FireBug](https://cloud.githubusercontent.com/assets/217868/11569590/ccf713a8-9a03-11e5-97f7-42fa11022706.png)
 
 **Error page**
 
-![Swipe View](http://alertdevelop.ru/img/profilertoolbar/github/errorpage.png)
+![Error](https://cloud.githubusercontent.com/assets/217868/11569579/bc9494f4-9a03-11e5-91aa-2fffa81cf5de.png)
 
 
 For more information visit http://alertdevelop.ru/projects/profilertoolbar
