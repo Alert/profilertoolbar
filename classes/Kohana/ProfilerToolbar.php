@@ -251,7 +251,7 @@ class Kohana_ProfilerToolbar {
     $files = get_included_files();
     $res   = array('data' => array(), 'total' => array('size' => 0, 'lines' => 0, 'count' => 0));
 
-    foreach ($files as $file) {
+    foreach ($files as $file) if(file_exists($file)){
       $size  = filesize($file);
       $lines = substr_count(file_get_contents($file), "\n");
       $res['total']['size'] += $size;
