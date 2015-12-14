@@ -2,8 +2,7 @@ ProfilerToolbar for Kohana framework
 ===============
 ProfilerToolbar it is another realization of the DebugToolbar written by Aaron Forsander, but has additional features.
 
-**Demo**, description and usage instructions: http://alertdevelop.ru/projects/profilertoolbar
-
+**Demo**, description and usage instructions: http://alert.github.io/profilertoolbar
 How it looks
 -----
 
@@ -20,4 +19,4 @@ How it looks
 ![Swipe View](http://alertdevelop.ru/img/profilertoolbar/github/errorpage.png)
 
 
-For more information visit http://alertdevelop.ru/projects/profilertoolbar
+For more information visit http://alert.github.io/profilertoolbar
